@@ -8,7 +8,7 @@ import net.picklestring.flux_casting.blocks.FluxStoneLeak;
 import org.quiltmc.qsl.block.extensions.api.QuiltBlockSettings;
 
 public class BlockRegistry {
-	public static final FluxStoneLeak FLUX_STONE_LEAK = new FluxStoneLeak(QuiltBlockSettings.create());
+	public static final FluxStoneLeak FLUX_STONE_LEAK = new FluxStoneLeak(QuiltBlockSettings.create().strength(3, 3).requiresTool());
 
 	public static void Register()
 	{

@@ -41,7 +41,7 @@ public class FluxStoneLeakEntity extends BlockEntity {
 			if (stack.getNbt().getInt("infused_flux") >= 2000) itemEntity.setStack(new ItemStack(ItemRegistry.FLUX_BOTTLE, stack.getCount()));
         }
 
-		if (detectedEntity)
+		if (detectedEntity && (Math.random() >= 0.75))
 		{
 			((ServerWorld)world).spawnParticles(ParticleRegistry.FLUX_STAR, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, 1, 0.25D, 0.25D, 0.25D, 0.1);
 		}
