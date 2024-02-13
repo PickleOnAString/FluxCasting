@@ -1,0 +1,7 @@
+{
+  "item.flux_casting.blank_rune": "Blank Rune",
+  "item.flux_casting.scarred_stone": "Scarred Stone",
+  "item.flux_casting.flux_bottle": "Flux Bottle",
+  "item.flux_casting.bottle_o_scarred_stone": "Bottle o' Scarred Stone",
+  "item.flux_casting.bottle_o_scarred_stone.tooltip": "Current infused Flux: %d/100"
+}

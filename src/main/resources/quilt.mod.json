@@ -2,24 +2,23 @@
 	"schema_version": 1,
 	"quilt_loader": {
 		"group": "${group}",
-		"id": "example_mod",
+		"id": "flux_casting",
 		"version": "${version}",
 		"metadata": {
-			"name": "Mod Name",
+			"name": "Flux Casting",
 			"description": "A short description of your mod.",
 			"contributors": {
-				"Your name here": "Owner"
+				"Pickle": "Lead Developer"
 			},
 			"contact": {
-				"homepage": "https://example.com/",
-				"issues": "https://github.com/QuiltMC/quilt-template-mod/issues",
-				"sources": "https://github.com/QuiltMC/quilt-template-mod"
+				"homepage": "https://picklstring.net"
 			},
-			"icon": "assets/example_mod/icon.png"
+			"icon": "assets/flux_casting/icon.png"
 		},
 		"intermediate_mappings": "net.fabricmc:intermediary",
 		"entrypoints": {
-			"init": "com.example.example_mod.ExampleMod"
+			"init": "net.picklestring.flux_casting.FluxCasting",
+			"client_init": "net.picklestring.flux_casting.FluxCastingClient"
 		},
 		"depends": [
 			{
@@ -36,5 +35,5 @@
 			}
 		]
 	},
-	"mixin": "example_mod.mixins.json"
+	"mixin": "flux_casting.mixins.json"
 }
