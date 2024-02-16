@@ -1,0 +1,19 @@
+{
+  "name": "A note from Dr. Aiden",
+  "icon": "minecraft:writable_book",
+  "category": "flux_casting:note_category",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "If you are reading this, I have succumbed to the flux. This note is being sent 300 years after my initial journey into the unknown. I sought insight into the flux; it haunted my dreams and whispered to me. However, that is irrelevant now. I require something from you,"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "whoever you may be. This is of utmost importance. You are our only hope. I need you to seek out a flux leak. I am unable to describe what these leaks look like anymore, as I am now 300 years in the past. However, given that the universe still exists, I presume that the rifts have not yet torn it apart, indicating that a major rift has not recently opened."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Your best chance of finding a flux leak is to inspect stone; these leaks tend to manifest in stone and do not disperse, causing the flux to solidify. Once you locate such a leak, please break the leak and observe the outcome. It is imperative that you continue this research. You must safeguard this universe. Sincerely, Dr. Aiden"
+    }
+  ]
+}

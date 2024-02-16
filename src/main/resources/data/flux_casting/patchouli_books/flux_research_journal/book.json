@@ -1,0 +1,12 @@
+{
+  "name": "item.flux_casting.flux_research_journal.name",
+  "landing_text": "A mysterious note materialized in my hand from a mysterious person named \"Dr. Aiden.\" He wants me to continue his research into this mysterious substance called the flux, so I'm keeping a journal of my findings.",
+  "creative_tab": "flux_casting:misc_group",
+  "book_texture": "flux_casting:textures/gui/book_flux_research_journal.png",
+  "model": "flux_casting:flux_research_journal",
+  "nameplate_color": "4464c1",
+  "text_overflow_mode": "overflow",
+  "use_blocky_font": true,
+  "show_progress": false,
+  "use_resource_pack": true
+}

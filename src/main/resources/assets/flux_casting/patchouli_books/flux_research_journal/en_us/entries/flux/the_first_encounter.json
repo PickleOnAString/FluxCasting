@@ -1,0 +1,19 @@
+{
+  "name": "The First Encounter",
+  "icon": "minecraft:writable_book",
+  "category": "flux_casting:flux_category",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "What... What did I just feel? I need to collect myself. As I approached the supposed flux leak, I felt a sense of lightness, as if I were in a dream. It was a strange sensation, to be sure. Then, as I swung my pickaxe into the leak, it shattered, and I began to black out..."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "I woke up seemingly a few hours later, though it felt like an eternity. It felt like I wasn’t bound to my body but trapped inside it, like I didn’t have control over my actions. It was as if my body was asleep, but my consciousness was awake. I realize now that this flux is incredibly dangerous; it possesses strange, inexplicable properties."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "All that remains of the flux leak are some peculiar stones, almost as if they've been scarred by a mysterious energy. I shall refer to them as scarred stones. I must rest. The weariness is overwhelming... so... so... tired..."
+    }
+  ]
+}

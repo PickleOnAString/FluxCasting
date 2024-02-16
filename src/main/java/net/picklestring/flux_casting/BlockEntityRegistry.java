@@ -14,6 +14,6 @@ public class BlockEntityRegistry {
 
 	public static void Register()
 	{
-		Registry.register(Registries.BLOCK_ENTITY_TYPE, new Identifier(FluxCasting.ModID, "demo_block_entity"), FLUX_STONE_LEAK_ENTITY);
+		Registry.register(Registries.BLOCK_ENTITY_TYPE, new Identifier(FluxCasting.ModID, "flux_stone_leak_entity"), FLUX_STONE_LEAK_ENTITY);
 	}
 }

@@ -1,0 +1,15 @@
+{
+  "name": "A strange dream",
+  "icon": "minecraft:writable_book",
+  "category": "flux_casting:note_category",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "That was the strangest dream I've ever had... It's likely just nonsensical, as most dreams are, but it feels oddly real somehow. In this dream, there was a voice... A voice speaking to me... A voice that knew my name... This is roughly what the voice said:"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "'Those stones are powerful. Those stones are the key.' It repeated this mantra in a ghostly, otherworldly voice. Perhaps I'm simply still reeling from today's events, and the dream holds no significance. Still, I can't shake the urge to research these scarred stones."
+    }
+  ]
+}

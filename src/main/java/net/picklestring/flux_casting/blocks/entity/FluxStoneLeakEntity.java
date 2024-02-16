@@ -1,7 +1,9 @@
 package net.picklestring.flux_casting.blocks.entity;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.resource.Material;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.command.argument.ParticleEffectArgumentType;
 import net.minecraft.entity.ItemEntity;
@@ -25,9 +27,26 @@ import net.picklestring.flux_casting.blocks.FluxStoneLeak;
 import java.util.List;
 
 public class FluxStoneLeakEntity extends BlockEntity {
+	private int fluxLeft = 16000;
+
     public FluxStoneLeakEntity(BlockPos pos, BlockState state) {
         super(BlockEntityRegistry.FLUX_STONE_LEAK_ENTITY, pos, state);
     }
+
+	@Override
+	public void writeNbt(NbtCompound nbt) {
+		// Save the current value of the number to the nbt
+		nbt.putInt("flux_left", fluxLeft);
+
+		super.writeNbt(nbt);
+	}
+
+	@Override
+	public void readNbt(NbtCompound nbt) {
+		super.readNbt(nbt);
+
+		fluxLeft = nbt.getInt("flux_left");
+	}
 
     public static void tick(World world, BlockPos pos, BlockState state, FluxStoneLeakEntity be) {
 		boolean detectedEntity = false;
@@ -38,7 +57,24 @@ public class FluxStoneLeakEntity extends BlockEntity {
 			if (!stack.getNbt().contains("infused_flux")) stack.getNbt().putInt("infused_flux", 0);
 			stack.getNbt().putInt("infused_flux", stack.getNbt().getInt("infused_flux")+1);
 
-			if (stack.getNbt().getInt("infused_flux") >= 2000) itemEntity.setStack(new ItemStack(ItemRegistry.FLUX_BOTTLE, stack.getCount()));
+			if (stack.getNbt().getInt("infused_flux") >= 2000)
+			{
+				if (stack.getCount() > be.fluxLeft)
+				{
+					itemEntity.dropStack(new ItemStack(ItemRegistry.FLUX_BOTTLE, be.fluxLeft));
+					stack.setCount(stack.getCount()-be.fluxLeft);
+					be.fluxLeft = 0;
+				}
+				else
+				{
+					be.fluxLeft -= stack.getCount();
+					itemEntity.setStack(new ItemStack(ItemRegistry.FLUX_BOTTLE, stack.getCount()));
+				}
+				if (be.fluxLeft <= 0) world.setBlockState(pos, Blocks.STONE.getDefaultState());
+				return;
+			}
+			be.fluxLeft -= stack.getCount();
+			if (be.fluxLeft <= 0) world.setBlockState(pos, Blocks.STONE.getDefaultState());
         }
 
 		if (detectedEntity && (Math.random() >= 0.75))

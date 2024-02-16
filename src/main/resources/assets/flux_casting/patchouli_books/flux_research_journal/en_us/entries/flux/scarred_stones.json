@@ -1,0 +1,20 @@
+{
+  "name": "Scarred Stones",
+  "icon": "minecraft:writable_book",
+  "category": "flux_casting:flux_category",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Those stones left from the shattered leak seem to hold the key to something significant, though I have yet to discern what exactly. When I touch the stones, I experience a similar light, dream-like sensation, albeit much fainter than when near the leak."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Moreover, when I hold them close to each other, they generate a peculiar, ghostly blue field between them. Could this be flux? I must delve deeper to understand. Here's my hypothesis: If I aim to obtain a sample of flux, I must somehow contain it. What if I were to place a scarred stone inside a bottle, then position it atop a flux leak?"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "flux_casting:bottle_o_scarred_stone",
+      "text": "Would the flux somehow remain confined within the bottle?"
+    }
+  ]
+}
