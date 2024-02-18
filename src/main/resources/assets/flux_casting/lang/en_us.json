@@ -6,6 +6,8 @@
 
   "item.flux_casting.bottle_o_scarred_stone.tooltip": "Current infused Flux: %d/100",
 
+  "block.flux_casting.rift_bench": "Rift Bench",
+
   "itemGroup.flux_casting.misc_group": "Flux Casting Misc Items",
 
   "item.flux_casting.flux_research_journal.name": "Flux Research Journal"

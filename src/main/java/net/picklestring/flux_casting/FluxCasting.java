@@ -1,6 +1,6 @@
 package net.picklestring.flux_casting;
 
-import io.netty.handler.ssl.util.InsecureTrustManagerFactory;
+import net.picklestring.flux_casting.registries.*;
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.ModInitializer;
 import org.slf4j.Logger;
@@ -26,5 +26,7 @@ public class FluxCasting implements ModInitializer {
 		BlockEntityRegistry.Register();
 		ParticleRegistry.Register();
 		ItemGroupRegistry.Register();
+		ScreenRegistry.Register();
+		RecipeRegistry.Register();
     }
 }

@@ -6,8 +6,7 @@ import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.picklestring.flux_casting.BlockEntityRegistry;
-import net.picklestring.flux_casting.FluxCasting;
+import net.picklestring.flux_casting.registries.BlockEntityRegistry;
 import net.picklestring.flux_casting.blocks.entity.FluxStoneLeakEntity;
 import org.jetbrains.annotations.Nullable;
 

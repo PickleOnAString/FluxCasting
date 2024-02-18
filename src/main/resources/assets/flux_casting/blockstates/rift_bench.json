@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "flux_casting:block/rift_bench", "y": -90, "uvlock": false },
+    "facing=east":  { "model": "flux_casting:block/rift_bench", "y":  0, "uvlock": false },
+    "facing=south": { "model": "flux_casting:block/rift_bench", "y": 90, "uvlock": false },
+    "facing=west":  { "model": "flux_casting:block/rift_bench", "y": 180, "uvlock": false }
+  }
+}

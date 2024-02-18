@@ -1,0 +1,38 @@
+{
+  "type": "flux_casting:rift_bench_recipe",
+  "ingredients":
+    [
+      {
+        "item": "minecraft:gold_ingot"
+      },
+      {
+        "item": "minecraft:gold_ingot"
+      },
+      {
+        "item": "minecraft:gold_ingot"
+      },
+      {
+        "item": "minecraft:gold_ingot"
+      },
+      {
+        "item": "minecraft:gold_ingot"
+      },
+      {
+        "item": "minecraft:gold_ingot"
+      },
+      {
+        "item": "minecraft:gold_ingot"
+      },
+      {
+        "item": "minecraft:gold_ingot"
+      },
+      {
+        "item": "minecraft:gold_ingot"
+      },
+      {
+        "item": "minecraft:gold_ingot"
+      }
+    ],
+  "result": "minecraft:diamonds",
+  "resultAmount": 5
+}

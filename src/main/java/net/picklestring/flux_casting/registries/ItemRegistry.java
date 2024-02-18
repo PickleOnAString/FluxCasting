@@ -1,9 +1,10 @@
-package net.picklestring.flux_casting;
+package net.picklestring.flux_casting.registries;
 
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
+import net.picklestring.flux_casting.FluxCasting;
 import net.picklestring.flux_casting.items.BottleOScarredStone;
 import org.quiltmc.qsl.item.setting.api.QuiltItemSettings;
 
