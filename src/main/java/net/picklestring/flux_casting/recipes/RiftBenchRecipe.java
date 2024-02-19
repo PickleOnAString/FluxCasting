@@ -24,9 +24,8 @@ public class RiftBenchRecipe implements Recipe<ImplementedInventory> {
 	}
 	@Override
 	public boolean matches(ImplementedInventory inventory, World world) {
-		FluxCasting.LOGGER.info("FUCK THIS SHIT");
 		if (inventory.size() < 10) return false;
-		for (int i = 0; 1 < ingredients.size(); i++)
+		for (int i = 0; i < ingredients.size(); i++)
 		{
 			if (!ingredients.get(i).test(inventory.getStack(i))) {
                 return false;

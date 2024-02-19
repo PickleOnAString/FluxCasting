@@ -1,23 +1,17 @@
 package net.picklestring.flux_casting.blocks;
 
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.NamedScreenHandlerFactory;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.ScreenHandlerContext;
-import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
-import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.StringIdentifiable;
@@ -29,7 +23,7 @@ import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldEvents;
 import net.picklestring.flux_casting.FluxCasting;
 import net.picklestring.flux_casting.blocks.entity.RiftBenchEntity;
-import net.picklestring.flux_casting.gui.RiftBenchScreenHandler;
+import net.picklestring.flux_casting.registries.BlockEntityRegistry;
 import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("deprecation")
@@ -116,6 +110,17 @@ public class RiftBench extends HorizontalFacingBlock implements BlockEntityProvi
 		} else {
 			return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
 		}
+	}
+
+	@Nullable
+	@Override
+	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
+		return world.isClient ? null : (BlockEntityTicker)checkType(type, BlockEntityRegistry.RIFT_BENCH_ENTITY, RiftBenchEntity::tick);
+	}
+
+	@Nullable
+	protected static <A extends BlockEntity> BlockEntityTicker<? super RiftBenchEntity> checkType(BlockEntityType<A> givenType, BlockEntityType<RiftBenchEntity> expectedType, BlockEntityTicker<? super RiftBenchEntity> ticker) {
+		return expectedType == givenType ? ticker : null;
 	}
 
 	private static Direction getDirectionTowardsOtherPart(Part part, Direction direction) {

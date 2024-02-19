@@ -18,9 +18,10 @@ public class RiftBenchRecipeSerializer implements RecipeSerializer<RiftBenchReci
 	public static final RiftBenchRecipeSerializer INSTANCE = new RiftBenchRecipeSerializer();
 
 	// This will be the "type" field in the json
-	public static final Identifier ID = new Identifier(FluxCasting.ModID+"rift_bench_recipe");
+	public static final Identifier ID = new Identifier(FluxCasting.ModID, "rift_bench_recipe");
 
 	private RiftBenchRecipeSerializer() {
+		FluxCasting.LOGGER.info("Loaded recipe serializer!");
 	}
 
 	@Override

@@ -10,6 +10,7 @@ import net.picklestring.flux_casting.recipes.RiftBenchRecipeSerializer;
 public class RecipeRegistry {
 	public static void Register()
 	{
+		FluxCasting.LOGGER.info("Registering recipe");
 		Registry.register(Registries.RECIPE_SERIALIZER, RiftBenchRecipeSerializer.ID, RiftBenchRecipeSerializer.INSTANCE);
 		Registry.register(Registries.RECIPE_TYPE, new Identifier(FluxCasting.ModID, RiftBenchRecipe.RiftBenchRecipeType.ID), RiftBenchRecipe.RiftBenchRecipeType.INSTANCE);
 	}

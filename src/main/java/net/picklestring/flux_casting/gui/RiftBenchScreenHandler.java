@@ -8,9 +8,11 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.screen.slot.SlotActionType;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.picklestring.flux_casting.FluxCasting;
 import net.picklestring.flux_casting.ImplementedInventory;
+import net.picklestring.flux_casting.blocks.entity.RiftBenchEntity;
 import net.picklestring.flux_casting.registries.ScreenRegistry;
 import net.picklestring.flux_casting.recipes.RiftBenchRecipe;
 
@@ -79,12 +81,11 @@ public class RiftBenchScreenHandler extends ScreenHandler {
 	@Override
 	public void onSlotClick(int slotIndex, int button, SlotActionType actionType, PlayerEntity player) {
 		super.onSlotClick(slotIndex, button, actionType, player);
-		FluxCasting.LOGGER.info("data changed");
-		this.context.run((world, pos) -> craft(this, world, this.player, implementedInventory));
+		this.context.run((world, pos) -> craft(this, world, this.player, implementedInventory, pos));
 	}
 
-	protected static void craft(ScreenHandler handler, World world, PlayerEntity player, ImplementedInventory inventory) {
-		FluxCasting.LOGGER.info("crafting in context");
+	protected static void craft(ScreenHandler handler, World world, PlayerEntity player, ImplementedInventory inventory, BlockPos pos) {
+		/*FluxCasting.LOGGER.info("crafting in context");
 		Optional<RiftBenchRecipe> match = world.getRecipeManager().getFirstMatch(RiftBenchRecipe.RiftBenchRecipeType.INSTANCE, inventory, world);
 		if (match.isEmpty()) return;
 		RiftBenchRecipe recipe = match.get();
@@ -92,10 +93,13 @@ public class RiftBenchScreenHandler extends ScreenHandler {
 		{
 			FluxCasting.LOGGER.info("found recipe!");
 			ItemStack stack = inventory.getStack(i);
-			stack.setCount(stack.getCount());
+			stack.setCount(stack.getCount()-1);
 			inventory.setStack(i, stack);
 		}
 		inventory.setStack(0, recipe.outputStack.copy());
+		((RiftBenchEntity)world.getBlockEntity(pos)).isInfusing = true;*/
+		Optional<RiftBenchRecipe> match = world.getRecipeManager().getFirstMatch(RiftBenchRecipe.RiftBenchRecipeType.INSTANCE, inventory, world);
+		if (match.isPresent()) ((RiftBenchEntity)world.getBlockEntity(pos)).isInfusing = true;
 	}
 
 	// Shift + Player Inv Slot
