@@ -108,7 +108,7 @@ public class RiftBenchScreenHandler extends ScreenHandler {
 		inventory.setStack(0, recipe.outputStack.copy());
 		((RiftBenchEntity)world.getBlockEntity(pos)).isInfusing = true;*/
 		Optional<RiftBenchRecipe> match = world.getRecipeManager().getFirstMatch(RiftBenchRecipe.RiftBenchRecipeType.INSTANCE, inventory, world);
-		if (match.isPresent()) ((RiftBenchEntity)world.getBlockEntity(pos)).isInfusing = true;
+		if (match.isPresent()) ((RiftBenchEntity)world.getBlockEntity(pos)).setIsInfusing(true);
 	}
 
 	// Shift + Player Inv Slot

@@ -11,6 +11,7 @@ import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
+import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
@@ -26,7 +27,7 @@ import java.util.Optional;
 public class RiftBenchEntity extends BlockEntity implements NamedScreenHandlerFactory, ImplementedInventory {
 	private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(10, ItemStack.EMPTY);
 	public int infusionTime = 0;
-	public boolean isInfusing = false;
+	private boolean isInfusing = false;
 
 	public RiftBenchEntity(BlockPos pos, BlockState state) {
 		super(BlockEntityRegistry.RIFT_BENCH_ENTITY, pos, state);
@@ -84,19 +85,29 @@ public class RiftBenchEntity extends BlockEntity implements NamedScreenHandlerFa
 		return new RiftBenchScreenHandler(syncId, playerInventory, this, ScreenHandlerContext.create(world, pos), this.isInfusingDelegate);
 	}
 
+	public void setIsInfusing(Boolean value) {
+		this.isInfusing = value;
+		world.setBlockState(pos, world.getBlockState(pos).with(BooleanProperty.of("active"), value));
+	}
+
+	public boolean getIsInfusing()
+	{
+		return isInfusing;
+	}
+
 	public static void tick(World world, BlockPos blockPos, BlockState blockState, RiftBenchEntity riftBenchEntity) {
 		if (riftBenchEntity.isInfusing) {
 			riftBenchEntity.infusionTime++;
 			Optional<RiftBenchRecipe> match = world.getRecipeManager().getFirstMatch(RiftBenchRecipe.RiftBenchRecipeType.INSTANCE, (RiftBenchEntity)world.getBlockEntity(blockPos), world);
 			if (match.isEmpty())
 			{
-				riftBenchEntity.isInfusing = false;
+				riftBenchEntity.setIsInfusing(false);
 				riftBenchEntity.infusionTime = 0;
 			}
 
 			if (riftBenchEntity.infusionTime >= 200) {
 				riftBenchEntity.infusionTime = 0;
-				riftBenchEntity.isInfusing = false;
+				riftBenchEntity.setIsInfusing(false);
 
 				ImplementedInventory implInventory = (RiftBenchEntity)world.getBlockEntity(blockPos);
 				RiftBenchRecipe recipe = match.get();
@@ -107,7 +118,7 @@ public class RiftBenchEntity extends BlockEntity implements NamedScreenHandlerFa
 					implInventory.setStack(i, stack);
 				}
 				implInventory.setStack(0, recipe.outputStack.copy());
-				((RiftBenchEntity)world.getBlockEntity(blockPos)).isInfusing = true;
+				((RiftBenchEntity)world.getBlockEntity(blockPos)).setIsInfusing(true);
 			}
 		}
 	}

@@ -1,8 +1,12 @@
 {
   "variants": {
-    "facing=north": { "model": "flux_casting:block/rift_bench", "y": -90, "uvlock": false },
-    "facing=east":  { "model": "flux_casting:block/rift_bench", "y":  0, "uvlock": false },
-    "facing=south": { "model": "flux_casting:block/rift_bench", "y": 90, "uvlock": false },
-    "facing=west":  { "model": "flux_casting:block/rift_bench", "y": 180, "uvlock": false }
+    "facing=north,active=false": { "model": "flux_casting:block/rift_bench", "y": -90, "uvlock": false },
+    "facing=east,active=false":  { "model": "flux_casting:block/rift_bench", "y":  0, "uvlock": false },
+    "facing=south,active=false": { "model": "flux_casting:block/rift_bench", "y": 90, "uvlock": false },
+    "facing=west,active=false":  { "model": "flux_casting:block/rift_bench", "y": 180, "uvlock": false },
+    "facing=north,active=true": { "model": "flux_casting:block/rift_bench_active", "y": -90, "uvlock": false },
+    "facing=east,active=true":  { "model": "flux_casting:block/rift_bench_active", "y":  0, "uvlock": false },
+    "facing=south,active=true": { "model": "flux_casting:block/rift_bench_active", "y": 90, "uvlock": false },
+    "facing=west,active=true":  { "model": "flux_casting:block/rift_bench_active", "y": 180, "uvlock": false }
   }
 }

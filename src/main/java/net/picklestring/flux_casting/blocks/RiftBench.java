@@ -10,6 +10,7 @@ import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.state.StateManager;
+import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
@@ -29,10 +30,11 @@ import org.jetbrains.annotations.Nullable;
 @SuppressWarnings("deprecation")
 public class RiftBench extends HorizontalFacingBlock implements BlockEntityProvider {
 	public static final EnumProperty<Part> PART = EnumProperty.of("part", Part.class);
+	public static final BooleanProperty ACTIVE = BooleanProperty.of("active");
 
 	public RiftBench(Settings settings) {
 		super(settings.nonOpaque());
-		setDefaultState(getDefaultState().with(Properties.HORIZONTAL_FACING, Direction.NORTH));
+		setDefaultState(getDefaultState().with(Properties.HORIZONTAL_FACING, Direction.NORTH).with(ACTIVE, false));
 	}
 
 	@Override
@@ -45,6 +47,7 @@ public class RiftBench extends HorizontalFacingBlock implements BlockEntityProvi
 		// Add the block state property
 		builder.add(PART);
 		builder.add(Properties.HORIZONTAL_FACING);
+		builder.add(ACTIVE);
 	}
 
 	@Override
