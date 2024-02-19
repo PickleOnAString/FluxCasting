@@ -8,6 +8,7 @@ import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.NamedScreenHandlerFactory;
+import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.text.Text;
@@ -41,6 +42,25 @@ public class RiftBenchEntity extends BlockEntity implements NamedScreenHandlerFa
 		return inventory;
 	}
 
+	private final PropertyDelegate isInfusingDelegate = new PropertyDelegate() {
+		@Override
+		public int get(int index) {
+			return isInfusing ? 1 : 0;
+		}
+
+		@Override
+		public void set(int index, int value) {
+			isInfusing = value == 1;
+		}
+
+		//this is supposed to return the amount of integers you have in your delegate, in our example only one
+		@Override
+		public int size() {
+			return 1;
+		}
+	};
+
+
 	@Override
 	public void readNbt(NbtCompound nbt) {
 		super.readNbt(nbt);
@@ -61,7 +81,7 @@ public class RiftBenchEntity extends BlockEntity implements NamedScreenHandlerFa
 	public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
 		//We provide *this* to the screenHandler as our class Implements Inventory
 		//Only the Server has the Inventory at the start, this will be synced to the client in the ScreenHandler
-		return new RiftBenchScreenHandler(syncId, playerInventory, this, ScreenHandlerContext.create(world, pos));
+		return new RiftBenchScreenHandler(syncId, playerInventory, this, ScreenHandlerContext.create(world, pos), this.isInfusingDelegate);
 	}
 
 	public static void tick(World world, BlockPos blockPos, BlockState blockState, RiftBenchEntity riftBenchEntity) {

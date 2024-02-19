@@ -4,6 +4,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.screen.ArrayPropertyDelegate;
+import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
@@ -22,24 +24,27 @@ public class RiftBenchScreenHandler extends ScreenHandler {
 	private final ImplementedInventory implementedInventory;
 	public ScreenHandlerContext context;
 	public PlayerEntity player;
+	public PropertyDelegate isInfusingDelegate;
 
 	//This constructor gets called on the client when the server wants it to open the screenHandler,
 	//The client will call the other constructor with an empty Inventory and the screenHandler will automatically
 	//sync this empty inventory with the inventory on the server.
 	public RiftBenchScreenHandler(int syncId, PlayerInventory playerInventory) {
-		this(syncId, playerInventory, new ImplementedInventory.EMPTY(10), ScreenHandlerContext.EMPTY);
+		this(syncId, playerInventory, new ImplementedInventory.EMPTY(10), ScreenHandlerContext.EMPTY, new ArrayPropertyDelegate(1));
 	}
 
 	//This constructor gets called from the BlockEntity on the server without calling the other constructor first, the server knows the inventory of the container
 	//and can therefore directly provide it as an argument. This inventory will then be synced to the client.
-	public RiftBenchScreenHandler(int syncId, PlayerInventory playerInventory, ImplementedInventory inventory, ScreenHandlerContext context) {
+	public RiftBenchScreenHandler(int syncId, PlayerInventory playerInventory, ImplementedInventory inventory, ScreenHandlerContext context, PropertyDelegate isInfusingDelegate) {
 		super(ScreenRegistry.RIFT_BENCH_SCREEN_HANDLER, syncId);
 		checkSize(inventory, 10);
 		this.context = context;
 		this.player = playerInventory.player;
 		this.implementedInventory = inventory;
+		this.isInfusingDelegate = isInfusingDelegate;
 		//some inventories do custom logic when a player opens it.
 		inventory.onOpen(playerInventory.player);
+		this.addProperties(isInfusingDelegate);
 
 		//This will place the slot in the correct locations for a 3x3 Grid. The slots exist on both server and client!
 		//This will not render the background of the slots however, this is the Screens job
@@ -71,6 +76,10 @@ public class RiftBenchScreenHandler extends ScreenHandler {
 
 	public RiftBenchScreenHandler(int syncId, PlayerInventory playerInventory, PacketByteBuf packetByteBuf) {
 		this(syncId, playerInventory);
+	}
+
+	public boolean getIsInfusing(){
+		return isInfusingDelegate.get(0) == 1;
 	}
 
 	@Override
