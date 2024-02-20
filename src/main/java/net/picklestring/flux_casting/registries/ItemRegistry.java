@@ -1,5 +1,7 @@
 package net.picklestring.flux_casting.registries;
 
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -14,6 +16,7 @@ public class ItemRegistry {
 	public static final Item FLUX_BOTTLE = new Item(new QuiltItemSettings());
 	public static final Item SCARRED_STONE = new Item(new QuiltItemSettings());
 	public static final BottleOScarredStone BOTTLE_O_SCARRED_STONE = new BottleOScarredStone(new QuiltItemSettings());
+	public static final BlockItem RIFT_BENCH = new BlockItem(BlockRegistry.RIFT_BENCH, new FabricItemSettings());
 
 	public static void Register()
 	{
@@ -22,5 +25,6 @@ public class ItemRegistry {
 		Registry.register(Registries.ITEM, new Identifier(FluxCasting.ModID, "flux_bottle"), FLUX_BOTTLE);
 		Registry.register(Registries.ITEM, new Identifier(FluxCasting.ModID, "scarred_stone"), SCARRED_STONE);
 		Registry.register(Registries.ITEM, new Identifier(FluxCasting.ModID, "bottle_o_scarred_stone"), BOTTLE_O_SCARRED_STONE);
+		Registry.register(Registries.ITEM, new Identifier(FluxCasting.ModID, "rift_bench"), RIFT_BENCH);
 	}
 }

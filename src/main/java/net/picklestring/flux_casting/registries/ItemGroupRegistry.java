@@ -18,6 +18,7 @@ public class ItemGroupRegistry {
 			entries.addItem(ItemRegistry.FLUX_BOTTLE);
 			entries.addItem(ItemRegistry.BOTTLE_O_SCARRED_STONE);
 			entries.addItem(ItemRegistry.SCARRED_STONE);
+			entries.addItem(ItemRegistry.RIFT_BENCH);
 		})
 		.build();
 
