@@ -1,0 +1,38 @@
+{
+  "type": "flux_casting:rift_bench_recipe",
+  "ingredients":
+  [
+    {
+      "item": "minecraft:stone"
+    },
+    {
+      "item": "flux_casting:scarred_stone"
+    },
+    {
+      "item": "flux_casting:scarred_stone"
+    },
+    {
+      "item": "flux_casting:scarred_stone"
+    },
+    {
+      "item": "flux_casting:scarred_stone"
+    },
+    {
+      "item": "flux_casting:scarred_stone"
+    },
+    {
+      "item": "flux_casting:scarred_stone"
+    },
+    {
+      "item": "flux_casting:scarred_stone"
+    },
+    {
+      "item": "flux_casting:scarred_stone"
+    },
+    {
+      "tag": "flux_casting:flux_small"
+    }
+  ],
+  "result": "flux_casting:blank_rune",
+  "resultAmount": 5
+}
