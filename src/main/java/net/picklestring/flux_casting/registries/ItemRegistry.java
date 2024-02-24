@@ -8,6 +8,9 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.picklestring.flux_casting.FluxCasting;
 import net.picklestring.flux_casting.items.BottleOScarredStone;
+import net.picklestring.flux_casting.items.runes.DebugRune;
+import net.picklestring.flux_casting.items.runes.InserterRune;
+import net.picklestring.flux_casting.items.runes.StringInputRune;
 import org.quiltmc.qsl.item.setting.api.QuiltItemSettings;
 
 public class ItemRegistry {
@@ -17,6 +20,9 @@ public class ItemRegistry {
 	public static final Item SCARRED_STONE = new Item(new QuiltItemSettings());
 	public static final BottleOScarredStone BOTTLE_O_SCARRED_STONE = new BottleOScarredStone(new QuiltItemSettings());
 	public static final BlockItem RIFT_BENCH = new BlockItem(BlockRegistry.RIFT_BENCH, new FabricItemSettings());
+	public static final DebugRune DEBUG_RUNE = new DebugRune(new QuiltItemSettings());
+	public static final InserterRune LEFT_TO_RIGHT_INSERTER_RUNE = new InserterRune(new QuiltItemSettings(), InserterRune.Direction.Right, InserterRune.Direction.Left);
+	public static final StringInputRune STRING_INPUT_RUNE = new StringInputRune(new QuiltItemSettings());
 
 	public static void Register()
 	{
@@ -26,5 +32,8 @@ public class ItemRegistry {
 		Registry.register(Registries.ITEM, new Identifier(FluxCasting.ModID, "scarred_stone"), SCARRED_STONE);
 		Registry.register(Registries.ITEM, new Identifier(FluxCasting.ModID, "bottle_o_scarred_stone"), BOTTLE_O_SCARRED_STONE);
 		Registry.register(Registries.ITEM, new Identifier(FluxCasting.ModID, "rift_bench"), RIFT_BENCH);
+		Registry.register(Registries.ITEM, new Identifier(FluxCasting.ModID, "debug_rune"), DEBUG_RUNE);
+		Registry.register(Registries.ITEM, new Identifier(FluxCasting.ModID, "left_to_right_inserter_rune"), LEFT_TO_RIGHT_INSERTER_RUNE);
+		Registry.register(Registries.ITEM, new Identifier(FluxCasting.ModID, "string_input_rune"), STRING_INPUT_RUNE);
 	}
 }

@@ -15,6 +15,7 @@ import net.minecraft.world.World;
 import net.picklestring.flux_casting.FluxCasting;
 import net.picklestring.flux_casting.ImplementedInventory;
 import net.picklestring.flux_casting.blocks.entity.RiftBenchEntity;
+import net.picklestring.flux_casting.blocks.entity.RuneTableEntity;
 import net.picklestring.flux_casting.registries.ScreenRegistry;
 import net.picklestring.flux_casting.recipes.RiftBenchRecipe;
 
@@ -78,7 +79,7 @@ public class RiftBenchScreenHandler extends ScreenHandler {
 		this(syncId, playerInventory);
 	}
 
-	public boolean getIsInfusing(){
+    public boolean getIsInfusing(){
 		return isInfusingDelegate.get(0) == 1;
 	}
 

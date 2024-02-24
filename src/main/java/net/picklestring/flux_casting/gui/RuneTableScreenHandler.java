@@ -20,12 +20,12 @@ public class RuneTableScreenHandler extends ScreenHandler {
 
 	public RuneTableScreenHandler(int syncId, PlayerInventory playerInventory)
 	{
-		this(syncId, playerInventory, new ImplementedInventory.EMPTY(54), ScreenHandlerContext.EMPTY);
+		this(syncId, playerInventory, new ImplementedInventory.EMPTY(60), ScreenHandlerContext.EMPTY);
 	}
 
 	public RuneTableScreenHandler(int syncId, PlayerInventory playerInventory, ImplementedInventory inventory, ScreenHandlerContext context) {
-		super(ScreenRegistry.RIFT_BENCH_SCREEN_HANDLER, syncId);
-		checkSize(inventory, 54);
+		super(ScreenRegistry.RUNE_TABLE_SCREEN_HANDLER, syncId);
+		checkSize(inventory, 60);
 		this.context = context;
 		this.player = playerInventory.player;
 		this.implementedInventory = inventory;
@@ -38,16 +38,18 @@ public class RuneTableScreenHandler extends ScreenHandler {
 		int m;
 		int l;
 		//Our inventory
-		this.addSlot(new Slot(inventory, 0, 103, 63));
-		this.addSlot(new Slot(inventory, 1, 103, 27));
-		this.addSlot(new Slot(inventory, 2, 130, 36));
-		this.addSlot(new Slot(inventory, 3, 139, 63));
-		this.addSlot(new Slot(inventory, 4, 130, 90));
-		this.addSlot(new Slot(inventory, 5, 103, 99));
-		this.addSlot(new Slot(inventory, 6, 76, 90));
-		this.addSlot(new Slot(inventory, 7, 67, 63));
-		this.addSlot(new Slot(inventory, 8, 76, 36));
-		this.addSlot(new Slot(inventory, 9, 31, 63));
+		for (m = 0; m < 6; m++)
+		{
+			for (l = 0; l < 9; l++)
+			{
+				this.addSlot(new Slot(inventory, l + m * 9, 8 + l * 18, 18 + m * 18));
+			}
+		}
+
+		for (m = 0; m < 6; m++)
+		{
+			this.addSlot(new FluxSlot(inventory, m+54, 188, 18 + m * 18));
+		}
 
 		//The player inventory
 		for (m = 0; m < 3; ++m) {

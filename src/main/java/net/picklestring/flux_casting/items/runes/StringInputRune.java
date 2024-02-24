@@ -4,20 +4,20 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.collection.DefaultedList;
 import net.picklestring.flux_casting.FluxCasting;
 
-public class DebugRune extends RuneItem {
-	public DebugRune(Settings settings) {
+public class StringInputRune extends RuneItem {
+
+	public StringInputRune(Settings settings) {
 		super(settings);
 	}
 
 	@Override
 	public void onCast(DefaultedList<ItemStack> inventory, int index) {
-		executeInserters(inventory, index);
-		String debugString = getDataOrDefault(0, "", String.class);
-		FluxCasting.LOGGER.info(debugString);
+		return;
 	}
 
 	@Override
 	public Object getValue(DefaultedList<ItemStack> inventory, int index) {
-		return null;
+		FluxCasting.LOGGER.info("StringInputRune: getValue");
+		return inventory.get(index).getName().getString();
 	}
 }
