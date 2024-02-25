@@ -1,0 +1,18 @@
+{
+  "item.flux_casting.blank_rune": "Slate o' Barren",
+  "item.flux_casting.scarred_stone": "Stone o' Scarrred",
+  "item.flux_casting.flux_bottle": "Bottle o' Flux",
+  "item.flux_casting.bottle_o_scarred_stone": "Bottle o' Scarrred Stone",
+
+  "item.flux_casting.debug_rune": "Slate o' Experimentin'",
+  "item.flux_casting.string_input_rune": "Slate o' String Supply",
+
+  "item.flux_casting.bottle_o_scarred_stone.tooltip": "Flux o' Energized: %d/100",
+
+  "block.flux_casting.rift_bench": "Table o' Rift",
+  "block.flux_casting.rune_table": "Table o' Slate",
+
+  "itemGroup.flux_casting.misc_group": "Flux Castin' objects",
+
+  "item.flux_casting.flux_research_journal.name": "Flux Logbook"
+}
