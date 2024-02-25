@@ -2,17 +2,17 @@
   "item.flux_casting.blank_rune": "Blonk Flaat Stoon",
   "item.flux_casting.scarred_stone": "Odd Stane",
   "item.flux_casting.flux_bottle": "Floox Bottle",
-  "item.flux_casting.bottle_o_scarred_stone": "Bottle o' Scarred Stone",
+  "item.flux_casting.bottle_o_scarred_stone": "Bootle Of Oddish Stoon",
 
-  "item.flux_casting.debug_rune": "Debug Rune",
-  "item.flux_casting.string_input_rune": "String Input Rune",
+  "item.flux_casting.debug_rune": "Debog Flaat Stoon",
+  "item.flux_casting.string_input_rune": "String Inpuut Flaat Stoon",
 
-  "item.flux_casting.bottle_o_scarred_stone.tooltip": "Current infused Flux: %d/100",
+  "item.flux_casting.bottle_o_scarred_stone.tooltip": "Corrent infused Flucks: %d/100",
 
-  "block.flux_casting.rift_bench": "Rift Bench",
-  "block.flux_casting.rune_table": "Rune Table",
+  "block.flux_casting.rift_bench": "Rifty Benchy",
+  "block.flux_casting.rune_table": "Flaat Stoon Thingie",
 
-  "itemGroup.flux_casting.misc_group": "Flox Casting Misc Items",
+  "itemGroup.flux_casting.misc_group": "Flox Coosting Itoms",
 
   "item.flux_casting.flux_research_journal.name": "Fluox Sciants Boook"
 }
