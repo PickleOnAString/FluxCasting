@@ -4,6 +4,9 @@
   "item.flux_casting.flux_bottle": "Flux Bottle",
   "item.flux_casting.bottle_o_scarred_stone": "Bottle o' Scarred Stone",
 
+  "item.flux_casting.debug_rune": "Debug Rune",
+  "item.flux_casting.string_input_rune": "String Input Rune",
+
   "item.flux_casting.bottle_o_scarred_stone.tooltip": "Current infused Flux: %d/100",
 
   "block.flux_casting.rift_bench": "Rift Bench",

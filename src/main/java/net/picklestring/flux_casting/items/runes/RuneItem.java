@@ -1,11 +1,16 @@
 package net.picklestring.flux_casting.items.runes;
 
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.world.World;
 import net.picklestring.flux_casting.FluxCasting;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public abstract class RuneItem extends Item {
 	public ArrayList<Object> data = new ArrayList<>();
@@ -35,6 +40,14 @@ public abstract class RuneItem extends Item {
 				}
 			}
 		}
+	}
+
+	public String getStringPartOrDefault(int index, String defaultString, ItemStack itemStack)
+	{
+		String name = itemStack.getName().getString();
+		String[] strings = name.split(" ?: ?");
+		if (index >= strings.length) return defaultString;
+		return strings[index];
 	}
 
 	public <T> T getDataOrDefault(int index, T defaultData, Class<T> clazz) {
