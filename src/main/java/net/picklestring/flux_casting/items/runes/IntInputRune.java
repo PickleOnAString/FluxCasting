@@ -8,10 +8,9 @@ import net.minecraft.world.World;
 
 import java.lang.reflect.Type;
 
-public class StringInputRune extends RuneItem {
-
-	public StringInputRune(Settings settings) {
-		super(settings, new Type[][]{ new Type[]{String.class} }, new Type[]{String.class});
+public class IntInputRune extends RuneItem {
+	public IntInputRune(Settings settings) {
+		super(settings, new Type[][]{ new Type[]{Integer.class} }, new Type[]{Integer.class});
 	}
 
 	@Override
@@ -21,6 +20,6 @@ public class StringInputRune extends RuneItem {
 
 	@Override
 	public Object getValue(DefaultedList<ItemStack> inventory, int outputIndex, int runeIndex, PlayerEntity caster, Vec3d pos, World world) {
-		return getStringPartOrDefault(1, "", inventory.get(runeIndex));
+		return Integer.parseInt(getStringPartOrDefault(1, "0", inventory.get(runeIndex)));
 	}
 }

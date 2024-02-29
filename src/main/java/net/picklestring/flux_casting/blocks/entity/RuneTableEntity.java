@@ -13,11 +13,14 @@ import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.picklestring.flux_casting.ImplementedInventory;
 import net.picklestring.flux_casting.gui.RuneTableScreenHandler;
 import net.picklestring.flux_casting.items.runes.RuneItem;
 import net.picklestring.flux_casting.registries.BlockEntityRegistry;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.ArrayList;
 
 public class RuneTableEntity extends BlockEntity implements NamedScreenHandlerFactory, ImplementedInventory {
 	private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(60, ItemStack.EMPTY);
@@ -57,10 +60,17 @@ public class RuneTableEntity extends BlockEntity implements NamedScreenHandlerFa
             if (!stack.isEmpty()) {
 				if (stack.getItem() instanceof RuneItem)
 				{
-					((RuneItem)stack.getItem()).onCast(inventory, i);
+					((RuneItem)stack.getItem()).onCast(inventory, i, null, new Vec3d(pos.getX(), pos.getY(), pos.getZ()), world);
 				}
             }
 		}
+        for (ItemStack stack : inventory) {
+            if (!stack.isEmpty()) {
+                if (stack.getItem() instanceof RuneItem rune) {
+                    rune.data = new ArrayList<>();
+                }
+            }
+        }
 	}
 
 	@Override

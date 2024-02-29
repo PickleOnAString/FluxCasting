@@ -5,13 +5,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.picklestring.flux_casting.utils.Vector3;
 
 import java.lang.reflect.Type;
 
-public class StringInputRune extends RuneItem {
-
-	public StringInputRune(Settings settings) {
-		super(settings, new Type[][]{ new Type[]{String.class} }, new Type[]{String.class});
+public class GetPositionRune extends RuneItem {
+	public GetPositionRune(Settings settings) {
+		super(settings, new Type[][]{}, new Type[]{ Vector3.class });
 	}
 
 	@Override
@@ -21,6 +21,6 @@ public class StringInputRune extends RuneItem {
 
 	@Override
 	public Object getValue(DefaultedList<ItemStack> inventory, int outputIndex, int runeIndex, PlayerEntity caster, Vec3d pos, World world) {
-		return getStringPartOrDefault(1, "", inventory.get(runeIndex));
+		return Vector3.Vec3dToVector3(pos);
 	}
 }

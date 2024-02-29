@@ -7,11 +7,11 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 
-public class StringInputRune extends RuneItem {
-
-	public StringInputRune(Settings settings) {
-		super(settings, new Type[][]{ new Type[]{String.class} }, new Type[]{String.class});
+public class IntToStringRune extends RuneItem {
+	public IntToStringRune(Settings settings) {
+		super(settings, new Type[][]{ new Type[]{Number.class} }, new Type[]{String.class});
 	}
 
 	@Override
@@ -21,6 +21,9 @@ public class StringInputRune extends RuneItem {
 
 	@Override
 	public Object getValue(DefaultedList<ItemStack> inventory, int outputIndex, int runeIndex, PlayerEntity caster, Vec3d pos, World world) {
-		return getStringPartOrDefault(1, "", inventory.get(runeIndex));
+		executeInserters(inventory, runeIndex, caster, pos, world);
+		String string = getDataOrDefault(0, getDoubleFromName(1, inventory.get(runeIndex), 0d), Number.class).toString();
+		data = new ArrayList<>();
+		return string;
 	}
 }
