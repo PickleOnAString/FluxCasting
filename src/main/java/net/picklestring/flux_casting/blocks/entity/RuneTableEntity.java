@@ -14,6 +14,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.picklestring.flux_casting.FluxCasting;
 import net.picklestring.flux_casting.ImplementedInventory;
 import net.picklestring.flux_casting.gui.RuneTableScreenHandler;
 import net.picklestring.flux_casting.items.runes.RuneItem;
@@ -67,7 +68,7 @@ public class RuneTableEntity extends BlockEntity implements NamedScreenHandlerFa
         for (ItemStack stack : inventory) {
             if (!stack.isEmpty()) {
                 if (stack.getItem() instanceof RuneItem rune) {
-                    rune.data = new ArrayList<>();
+                    rune.data = new Object[rune.dataFormat.length];
                 }
             }
         }

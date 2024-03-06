@@ -4,8 +4,16 @@
   "item.flux_casting.flux_bottle": "Flux Bottle",
   "item.flux_casting.bottle_o_scarred_stone": "Bottle o' Scarred Stone",
 
-  "item.flux_casting.debug_rune": "Debug Rune",
+  "item.flux_casting.arcane_scripter_rune": "Rune: Arcane Scripter",
+  "item.flux_casting.soul_tracker_rune": "Rune: Soul Tracker",
+  "item.flux_casting.runic_conduit_rune": "Rune: Runic Conduit",
+  "item.flux_casting.numerical_nexus_rune": "Rune: Numerical Nexus",
+  "item.flux_casting.spatial_slice_x_rune": "Rune: Spatial Slice X",
+  "item.flux_casting.numerical_imbuement_rune": "Rune: Numerical Imbuement",
+  "item.flux_casting.glyphic_inscription_rune": "Rune: Glyphic Inscription",
   "item.flux_casting.string_input_rune": "String Input Rune",
+
+  "item.flux_casting.flux_wand.spell_bound": "Spell was bound to your wand!",
 
   "item.flux_casting.bottle_o_scarred_stone.tooltip": "Current infused Flux: %d/100",
 

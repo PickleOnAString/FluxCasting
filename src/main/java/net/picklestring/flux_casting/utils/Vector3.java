@@ -50,7 +50,7 @@ public class Vector3 {
 		return new Vector3(vec.getX(), vec.getY(), vec.getZ());
 	}
 
-	public Vec3d VectorToVec3id()
+	public Vec3d VectorToVec3d()
 	{
 		return new Vec3d(x, y, z);
 	}

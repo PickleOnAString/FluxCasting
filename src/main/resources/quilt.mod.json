@@ -35,5 +35,8 @@
 			}
 		]
 	},
-	"mixin": "flux_casting.mixins.json"
+	"mixin": "flux_casting.mixins.json",
+	"cardinal-components": [
+		"flux_casting:internalized_flux"
+	]
 }

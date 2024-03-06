@@ -5,14 +5,20 @@ import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.render.GameRenderer;
+import net.minecraft.client.texture.Sprite;
+import net.minecraft.client.texture.SpriteContents;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.screen.slot.Slot;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.picklestring.flux_casting.FluxCasting;
+import net.picklestring.flux_casting.items.runes.RuneItem;
 
 public class RuneTableScreen extends HandledScreen<RuneTableScreenHandler> {
 	private static final Identifier TEXTURE = new Identifier(FluxCasting.ModID, "textures/gui/rune_table_screen.png");
 	private static final Identifier TEXTURE_FLUX_INPUT = new Identifier(FluxCasting.ModID, "textures/gui/rune_table_screen_flux_input.png");
+
+	private static final Identifier RUNE_OVERLAY = new Identifier(FluxCasting.ModID, "textures/gui/rune_overlay/debug_rune_overlay.png");
 
 	public RuneTableScreen(RuneTableScreenHandler handler, PlayerInventory inventory, Text title) {
 		super(handler, inventory, title);
@@ -45,10 +51,25 @@ public class RuneTableScreen extends HandledScreen<RuneTableScreenHandler> {
 		}
 	}
 
+	protected void drawOverlay(GuiGraphics graphics, int mouseX, int mouseY)
+	{
+		int x = (width - backgroundWidth) / 2;
+		int y = (height - backgroundHeight) / 2;
+		if (!hasControlDown()) return;
+		RenderSystem.enableBlend();
+		for (Slot slot : handler.slots)
+		{
+			if (!slot.hasStack() || !(slot.getStack().getItem() instanceof RuneItem rune)) continue;
+			graphics.drawTexture(rune.OVERLAY_TEXTURE, slot.x+x, slot.y+y, 350, 0f, 0f, 16, 16, 16, 16);
+		}
+		RenderSystem.disableBlend();
+	}
+
 	@Override
 	public void render(GuiGraphics graphics, int mouseX, int mouseY, float delta) {
 		renderBackground(graphics);
 		super.render(graphics, mouseX, mouseY, delta);
+		drawOverlay(graphics, mouseX, mouseY);
 		drawMouseoverTooltip(graphics, mouseX, mouseY);
 	}
 

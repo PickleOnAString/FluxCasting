@@ -1,5 +1,6 @@
 package net.picklestring.flux_casting.items.runes;
 
+import com.sun.jna.platform.win32.WinUser;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -7,53 +8,56 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.picklestring.flux_casting.FluxCasting;
+import net.picklestring.flux_casting.items.FluxWand;
 import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.function.Function;
 
 public abstract class RuneItem extends Item {
-	public ArrayList<Object> data = new ArrayList<>();
+	public Object[] data;
 	public Type[][] dataFormat;
-	public Type[] outputFormat;
+	public Type outputType;
+	public Identifier OVERLAY_TEXTURE;
 
-	public RuneItem(Settings settings, Type[][] dataFormat, Type[] outputFormat) {
+	public RuneItem(Settings settings, Type[][] dataFormat, Type outputType, Identifier overlayTexture) {
 		super(settings);
 		this.dataFormat = dataFormat;
-		this.outputFormat = outputFormat;
+		this.outputType = outputType;
+		this.OVERLAY_TEXTURE = overlayTexture;
+		data = new Object[dataFormat.length];
 	}
 
 	@Override
 	public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+		if (outputType != null) {
+			tooltip.add(Text.literal("Output: ").formatted(Formatting.GRAY).append(Text.literal(simplifyTypeName(outputType.getTypeName())).formatted(Formatting.AQUA)));
+		}
 		if (dataFormat.length != 0) {
 			tooltip.add(Text.literal("Input:").formatted(Formatting.GRAY));
 			for (int i = 0; i < dataFormat.length; i++) {
 				tooltip.add(Text.literal("  > Index ").formatted(Formatting.GRAY).append(Text.literal(String.valueOf(i)).formatted(Formatting.GOLD)).append(Text.literal(": ").formatted(Formatting.GRAY)).append(getDataText(i)));
 			}
 		}
-		if (outputFormat.length != 0) {
-			tooltip.add(Text.literal("Output: ").formatted(Formatting.GRAY));
-			for (int i = 0; i < outputFormat.length; i++) {
-				tooltip.add(Text.literal("  > Index ").formatted(Formatting.GRAY).append(Text.literal(String.valueOf(i)).formatted(Formatting.GOLD)).append(Text.literal(": ").formatted(Formatting.GRAY)).append(Text.literal(simplifyTypeName(outputFormat[i].getTypeName())).formatted(Formatting.AQUA)));
-			}
-		}
 	}
 
 	public abstract void onCast(DefaultedList<ItemStack> inventory, int index, PlayerEntity caster, Vec3d pos, World world);
-	public abstract Object getValue(DefaultedList<ItemStack> inventory, int outputIndex, int runeIndex, PlayerEntity caster, Vec3d pos, World world);
+	public abstract Object getValue(DefaultedList<ItemStack> inventory, int runeIndex, PlayerEntity caster, Vec3d pos, World world);
 
 	public void executeInserters(DefaultedList<ItemStack> inventory, int index, PlayerEntity caster, Vec3d pos, World world) {
 		for (int i = 0; i < 4; i++) {
-			if (InserterRune.getAdjacentIndexFromDirection(index, i) >= 0 && InserterRune.getAdjacentIndexFromDirection(index, i) < inventory.size()) {
-				ItemStack newItem = inventory.get(InserterRune.getAdjacentIndexFromDirection(index, i));
-				if (newItem.getItem() instanceof InserterRune) {
-					if (((InserterRune) newItem.getItem()).insertDirection == InserterRune.invertDirection(InserterRune.intToDirection(i))) {
-						((InserterRune) newItem.getItem()).getValue(inventory, 0, InserterRune.getAdjacentIndexFromDirection(index, InserterRune.intToDirection(i)), caster, pos, world);
+			if (RunicConduitRune.getAdjacentIndexFromDirection(index, i) >= 0 && RunicConduitRune.getAdjacentIndexFromDirection(index, i) < inventory.size()) {
+				ItemStack newItem = inventory.get(RunicConduitRune.getAdjacentIndexFromDirection(index, i));
+				if (newItem.getItem() instanceof RunicConduitRune) {
+					if (((RunicConduitRune) newItem.getItem()).insertDirection == RunicConduitRune.invertDirection(RunicConduitRune.intToDirection(i))) {
+						((RunicConduitRune) newItem.getItem()).getValue(inventory, RunicConduitRune.getAdjacentIndexFromDirection(index, RunicConduitRune.intToDirection(i)), caster, pos, world);
 					}
 				}
 			}
@@ -63,11 +67,9 @@ public abstract class RuneItem extends Item {
 	public String getDataTextString(int index) {
 		if (dataFormat.length <= index) return "";
 		StringBuilder text = new StringBuilder();
-		for (int i = 0; i < dataFormat[index].length; i++)
-		{
+		for (int i = 0; i < dataFormat[index].length; i++) {
             text.append(simplifyTypeName(dataFormat[index][i].getTypeName()));
-			if (i+1 < dataFormat[index].length)
-			{
+			if (i+1 < dataFormat[index].length) {
 				text.append(" | ");
 			}
 		}
@@ -96,14 +98,14 @@ public abstract class RuneItem extends Item {
 		if (index < 0 || index >= dataFormat.length) {
 			return false;
 		}
-
-		for (int i = 0; i < dataFormat[index].length; i++)
-		{
+		for (int i = 0; i < dataFormat[index].length; i++) {
+			if (type == null) {
+				return true;
+			}
 			if (dataFormat[index][i].getClass().isInstance(type.getClass())) {
                 return true;
             }
 		}
-
 		return false;
 		/* Get the expected class from dataFormat
 		Class<?> expectedClass = dataFormat[index].getClass();
@@ -120,14 +122,12 @@ public abstract class RuneItem extends Item {
 	}
 
 	public <T> T getDataOrDefault(int index, T defaultData, Class<T> clazz) {
-		if (index >= data.size()) {
-			data.add(index, defaultData);
-		}else if (data.get(index) == null) {
-			data.set(index, defaultData);
-		} else if (!clazz.isInstance(data.get(index))) {
-			data.set(index, defaultData);
+		if (data[index] == null) {
+			data[index] = defaultData;
+		} else if (!clazz.isInstance(data[index])) {
+			data[index] = defaultData;
 		}
-		return clazz.cast(data.get(index));
+		return clazz.cast(data[index]);
 	}
 
 	public Double getDoubleFromName(int index, ItemStack stack, Double defaultData) {
