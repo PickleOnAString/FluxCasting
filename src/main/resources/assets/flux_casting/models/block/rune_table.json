@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "particle": "flux_casting:block/rune_table_side",
+    "down": "minecraft:block/polished_deepslate",
+    "up": "flux_casting:block/rune_table_top",
+    "north": "flux_casting:block/rune_table_side",
+    "east": "flux_casting:block/rune_table_side",
+    "south": "flux_casting:block/rune_table_side",
+    "west": "flux_casting:block/rune_table_side"
+  }
+}

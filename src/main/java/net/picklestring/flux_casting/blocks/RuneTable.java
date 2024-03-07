@@ -1,6 +1,7 @@
 package net.picklestring.flux_casting.blocks;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.entity.BlockEntity;
@@ -20,16 +21,8 @@ import net.picklestring.flux_casting.blocks.entity.RuneTableEntity;
 import org.jetbrains.annotations.Nullable;
 
 public class RuneTable extends BlockWithEntity {
-	public static final BooleanProperty TRIGGERED = Properties.TRIGGERED;
 	public RuneTable(Settings settings) {
 		super(settings);
-		setDefaultState(getDefaultState().with(TRIGGERED, Boolean.FALSE));
-	}
-
-	@Override
-	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-		// Add the block state property
-		builder.add(TRIGGERED);
 	}
 
 	@Nullable
@@ -47,23 +40,12 @@ public class RuneTable extends BlockWithEntity {
 		return ActionResult.SUCCESS;
 	}
 
-	@Override
-	public void neighborUpdate(BlockState state, World world, BlockPos pos, Block block, BlockPos fromPos, boolean notify) {
-		boolean powered = world.isReceivingRedstonePower(pos) || world.isReceivingRedstonePower(pos.up());
-		boolean justPowered = state.get(TRIGGERED);
-		if (powered && !justPowered)
-		{
-			((RuneTableEntity)world.getBlockEntity(pos)).executeRunes();
-			world.setBlockState(pos, state.with(TRIGGERED, Boolean.TRUE));
-		}
-		else if (!powered && justPowered)
-		{
-			world.setBlockState(pos, state.with(TRIGGERED, Boolean.FALSE));
-		}
-	}
-
 	public NamedScreenHandlerFactory createScreenHandlerFactory(BlockState state, World world, BlockPos pos) {
 		BlockEntity blockEntity = world.getBlockEntity(pos);
 		return blockEntity instanceof NamedScreenHandlerFactory ? (NamedScreenHandlerFactory)blockEntity : null;
+	}
+
+	public BlockRenderType getRenderType(BlockState state) {
+		return BlockRenderType.MODEL;
 	}
 }

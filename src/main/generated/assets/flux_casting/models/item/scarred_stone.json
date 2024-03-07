@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "flux_casting:item/blank_rune"
+    "layer0": "flux_casting:item/scarred_stone"
   }
 }

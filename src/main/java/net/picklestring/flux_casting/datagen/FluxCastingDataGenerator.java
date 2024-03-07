@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.data.client.ItemModelGenerator;
 import net.minecraft.data.client.model.BlockStateModelGenerator;
+import net.picklestring.flux_casting.registries.ItemRegistry;
 import net.picklestring.flux_casting.registries.RuneRegistry;
 
 public class FluxCastingDataGenerator implements DataGeneratorEntrypoint {
@@ -30,6 +31,7 @@ public class FluxCastingDataGenerator implements DataGeneratorEntrypoint {
 		@Override
 		public void generateItemModels(ItemModelGenerator itemModelGenerator) {
 			RuneRegistry.GenerateItemModels(itemModelGenerator);
+			ItemRegistry.GenerateItemModels(itemModelGenerator);
 		}
 	}
 }

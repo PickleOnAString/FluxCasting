@@ -10,18 +10,26 @@ import net.picklestring.flux_casting.FluxCasting;
 import net.picklestring.flux_casting.items.runes.*;
 import org.quiltmc.qsl.item.setting.api.QuiltItemSettings;
 
+import java.util.Optional;
+
 public class RuneRegistry {
 	public static final ArcaneScripterRune ARCANE_SCRIPTER_RUNE = new ArcaneScripterRune(new QuiltItemSettings());
+	public static final KineticMomentumRune KINETIC_MOMENTUM_RUNE = new KineticMomentumRune(new QuiltItemSettings());
+
 	public static final RunicConduitRune RUNIC_CONDUIT_RUNE = new RunicConduitRune(new QuiltItemSettings(), RunicConduitRune.Direction.Right, RunicConduitRune.Direction.Left);
 	public static final RunicConduitRune RUNIC_CONDUIT_RIGHT_LEFT_RUNE = new RunicConduitRune(new QuiltItemSettings(), RunicConduitRune.Direction.Left, RunicConduitRune.Direction.Right);
+
 	public static final GlyphicInscriptionRune GLYPHIC_INSCRIPTION_RUNE = new GlyphicInscriptionRune(new QuiltItemSettings());
 	public static final NumericalImbuementRune NUMERICAL_IMBUEMENT_RUNE = new NumericalImbuementRune(new QuiltItemSettings());
 	public static final SoulTrackerRune SOUL_TRACKER_RUNE = new SoulTrackerRune(new QuiltItemSettings());
 	public static final NumericalNexusRune NUMERICAL_NEXUS_RUNE = new NumericalNexusRune(new QuiltItemSettings());
 	public static final SpatialSliceXRune SPATIAL_SLICE_X_RUNE = new SpatialSliceXRune(new QuiltItemSettings());
-	public static final KineticMomentumRune KINETIC_MOMENTUM_RUNE = new KineticMomentumRune(new QuiltItemSettings());
 	public static final SummonersEchoRune SUMMONERS_ECHO_RUNE = new SummonersEchoRune(new QuiltItemSettings());
 	public static final SightlineSeekerRune SIGHTLINE_SEEKER_RUNE = new SightlineSeekerRune(new QuiltItemSettings());
+
+	public static final Identifier ACTION_RUNE_TEMPLATE = new Identifier(FluxCasting.ModID, "item/template_action_rune");
+	public static final Identifier FLOW_RUNE_TEMPLATE = new Identifier(FluxCasting.ModID, "item/template_flow_rune");
+	public static final Identifier DATA_RUNE_TEMPLATE = new Identifier(FluxCasting.ModID, "item/template_data_rune");
 
 	public static void Register()
 	{
@@ -39,6 +47,18 @@ public class RuneRegistry {
 	}
 
 	public static void GenerateItemModels(ItemModelGenerator itemModelGenerator) {
-		itemModelGenerator.register(ARCANE_SCRIPTER_RUNE, Models.SINGLE_LAYER_ITEM);
+		itemModelGenerator.register(ARCANE_SCRIPTER_RUNE, new Model(Optional.of(ACTION_RUNE_TEMPLATE), Optional.empty()));
+		itemModelGenerator.register(KINETIC_MOMENTUM_RUNE, new Model(Optional.of(ACTION_RUNE_TEMPLATE), Optional.empty()));
+
+		itemModelGenerator.register(RUNIC_CONDUIT_RUNE, new Model(Optional.of(FLOW_RUNE_TEMPLATE), Optional.empty()));
+		itemModelGenerator.register(RUNIC_CONDUIT_RIGHT_LEFT_RUNE, new Model(Optional.of(FLOW_RUNE_TEMPLATE), Optional.empty()));
+
+		itemModelGenerator.register(GLYPHIC_INSCRIPTION_RUNE, new Model(Optional.of(DATA_RUNE_TEMPLATE), Optional.empty()));
+		itemModelGenerator.register(NUMERICAL_IMBUEMENT_RUNE, new Model(Optional.of(DATA_RUNE_TEMPLATE), Optional.empty()));
+		itemModelGenerator.register(SOUL_TRACKER_RUNE, new Model(Optional.of(DATA_RUNE_TEMPLATE), Optional.empty()));
+		itemModelGenerator.register(NUMERICAL_NEXUS_RUNE, new Model(Optional.of(DATA_RUNE_TEMPLATE), Optional.empty()));
+		itemModelGenerator.register(SPATIAL_SLICE_X_RUNE, new Model(Optional.of(DATA_RUNE_TEMPLATE), Optional.empty()));
+		itemModelGenerator.register(SUMMONERS_ECHO_RUNE, new Model(Optional.of(DATA_RUNE_TEMPLATE), Optional.empty()));
+		itemModelGenerator.register(SIGHTLINE_SEEKER_RUNE, new Model(Optional.of(DATA_RUNE_TEMPLATE), Optional.empty()));
 	}
 }

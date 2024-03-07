@@ -1,6 +1,8 @@
 package net.picklestring.flux_casting.registries;
 
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.minecraft.data.client.ItemModelGenerator;
+import net.minecraft.data.client.model.Models;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
@@ -16,7 +18,6 @@ import org.quiltmc.qsl.item.setting.api.QuiltItemSettings;
 import java.sql.Ref;
 
 public class ItemRegistry {
-	public static final Item EXAMPLE_ITEM = new Item(new QuiltItemSettings());
 	public static final Item BLANK_RUNE = new Item(new QuiltItemSettings());
 	public static final Item FLUX_BOTTLE = new Item(new QuiltItemSettings());
 	public static final Item SCARRED_STONE = new Item(new QuiltItemSettings());
@@ -26,9 +27,7 @@ public class ItemRegistry {
 
 	public static final BlockItem RIFT_BENCH = new BlockItem(BlockRegistry.RIFT_BENCH, new QuiltItemSettings());
 
-	public static void Register()
-	{
-		Registry.register(Registries.ITEM, new Identifier(FluxCasting.ModID, "example_item"), EXAMPLE_ITEM);
+	public static void Register() {
 		Registry.register(Registries.ITEM, new Identifier(FluxCasting.ModID, "blank_rune"), BLANK_RUNE);
 		Registry.register(Registries.ITEM, new Identifier(FluxCasting.ModID, "flux_bottle"), FLUX_BOTTLE);
 		Registry.register(Registries.ITEM, new Identifier(FluxCasting.ModID, "scarred_stone"), SCARRED_STONE);
@@ -36,5 +35,13 @@ public class ItemRegistry {
 		Registry.register(Registries.ITEM, new Identifier(FluxCasting.ModID, "rift_bench"), RIFT_BENCH);
 		Registry.register(Registries.ITEM, new Identifier(FluxCasting.ModID, "ring"), RING);
 		Registry.register(Registries.ITEM, new Identifier(FluxCasting.ModID, "flux_wand"), FLUX_WAND);
+	}
+
+	public static void GenerateItemModels(ItemModelGenerator itemModelGenerator) {
+		itemModelGenerator.register(BLANK_RUNE, Models.SINGLE_LAYER_ITEM);
+		itemModelGenerator.register(FLUX_BOTTLE, Models.SINGLE_LAYER_ITEM);
+		itemModelGenerator.register(SCARRED_STONE, Models.SINGLE_LAYER_ITEM);
+		itemModelGenerator.register(BOTTLE_O_SCARRED_STONE, Models.SINGLE_LAYER_ITEM);
+		itemModelGenerator.register(FLUX_WAND, Models.HANDHELD);
 	}
 }

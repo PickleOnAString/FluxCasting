@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "flux_casting:item/rune_manipulation"
-  }
-}
