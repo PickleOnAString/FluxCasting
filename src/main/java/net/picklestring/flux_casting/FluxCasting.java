@@ -25,6 +25,7 @@ public class FluxCasting implements ModInitializer {
 
 	public void InitRegistries() {
 		ItemRegistry.Register();
+		RuneRegistry.Register();
 		BlockRegistry.Register();
 		BlockEntityRegistry.Register();
 		ParticleRegistry.Register();

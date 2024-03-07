@@ -19,7 +19,8 @@
 		"entrypoints": {
 			"init": "net.picklestring.flux_casting.FluxCasting",
 			"client_init": "net.picklestring.flux_casting.FluxCastingClient",
-			"cardinal-components": "net.picklestring.flux_casting.registries.ComponentRegistry"
+			"cardinal-components": "net.picklestring.flux_casting.registries.ComponentRegistry",
+			"fabric-datagen": "net.picklestring.flux_casting.datagen.FluxCastingDataGenerator"
 		},
 		"depends": [
 			{

@@ -33,6 +33,16 @@ project.configurations.all {
 	exclude(group: "net.fabricmc.fabric-api")
 }
 
+sourceSets {
+	main {
+		resources {
+			srcDirs += [
+				'src/main/generated'
+			]
+		}
+	}
+}
+
 loom {
 	// Loom and Loader both use this block in order to gather more information about your mod.
 	mods {
@@ -43,6 +53,19 @@ loom {
 			// If you shade (directly include classes, not JiJ) a dependency into your mod, include it here using one of these methods:
 			// dependency("com.example.shadowedmod:1.2.3")
 			// configuration("exampleShadedConfigurationName")
+		}
+	}
+
+	runs {
+		// This adds a new gradle task that runs the datagen API: "gradlew runDatagen"
+		datagen {
+			inherit server
+			name "Data Generation"
+			vmArg "-Dfabric-api.datagen"
+			vmArg "-Dfabric-api.datagen.output-dir=${file("src/main/generated")}"
+			vmArg "-Dfabric-api.datagen.modid=flux_casting"
+
+			runDir "build/datagen"
 		}
 	}
 }
