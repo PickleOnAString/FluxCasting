@@ -1,5 +1,8 @@
 package net.picklestring.flux_casting;
 
+import dev.onyxstudios.cca.api.v3.component.ComponentKey;
+import dev.onyxstudios.cca.api.v3.component.ComponentRegistry;
+import net.minecraft.util.Identifier;
 import net.picklestring.flux_casting.registries.*;
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.ModInitializer;

@@ -5,6 +5,8 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.util.Identifier;
 import net.picklestring.flux_casting.FluxCasting;
+import net.picklestring.flux_casting.InternalizedFluxComponent;
+import net.picklestring.flux_casting.registries.ComponentRegistry;
 import net.picklestring.flux_casting.registries.ItemRegistry;
 
 public class FluxBar implements HudRenderCallback {
@@ -15,14 +17,22 @@ public class FluxBar implements HudRenderCallback {
 	public void onHudRender(GuiGraphics drawContext, float tickDelta) {
 		int x = 0;
 		int y = 0;
+		int fillPercent = 0;
 		if (MinecraftClient.getInstance() != null)
 		{
 			if (!MinecraftClient.getInstance().player.isHolding(ItemRegistry.FLUX_WAND)) return;
+
+			InternalizedFluxComponent component = ComponentRegistry.INTERNALIZED_FLUX.get(MinecraftClient.getInstance().player);
+			float fillAmount = component.getValue();
+			float maxFill = component.getMaxValue();
+
+			fillPercent = Math.round((fillAmount / maxFill)*106f);
+
 			x = MinecraftClient.getInstance().getWindow().getScaledWidth();
             y = MinecraftClient.getInstance().getWindow().getScaledHeight() / 2;
 		}
 
 		drawContext.drawTexture(FLUX_BAR_BACKGROUND_TEXTURE, x-36, y-61, 0, 0, 32, 122);
-		drawContext.drawTexture(FLUX_BAR_FILL_TEXTURE, x-28, y-53, 0, 0, 16, 106);
+		drawContext.drawTexture(FLUX_BAR_FILL_TEXTURE, x-28, y+53-fillPercent, 0, 0, 16, fillPercent);
 	}
 }

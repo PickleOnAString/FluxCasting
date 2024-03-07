@@ -63,6 +63,8 @@ public class FluxWand extends Item {
 
 	public void executeRunes(DefaultedList<ItemStack> inventory, PlayerEntity player, World world)
 	{
+		if (world.isClient) return;
+
 		for(int i = 0; i < inventory.size(); i++)
 		{
 			ItemStack stack = inventory.get(i);

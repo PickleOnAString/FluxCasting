@@ -1,6 +1,7 @@
 package net.picklestring.flux_casting.items.runes;
 
 import com.sun.jna.platform.win32.WinUser;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -13,7 +14,9 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.picklestring.flux_casting.FluxCasting;
+import net.picklestring.flux_casting.InternalizedFluxComponent;
 import net.picklestring.flux_casting.items.FluxWand;
+import net.picklestring.flux_casting.registries.ComponentRegistry;
 import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.Type;
@@ -168,5 +171,11 @@ public abstract class RuneItem extends Item {
 		{
 			return defaultData;
 		}
+	}
+
+	public void consumeFlux(int amount, PlayerEntity caster)
+	{
+		InternalizedFluxComponent component = ComponentRegistry.INTERNALIZED_FLUX.get(caster);
+		component.setValue(component.getValue()-amount);
 	}
 }

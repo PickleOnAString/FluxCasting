@@ -58,4 +58,14 @@ public class Vector3 {
 	public static Vector3 Vec3dToVector3(Vec3d vec) {
 		return new Vector3(vec.getX(), vec.getY(), vec.getZ());
 	}
+
+	public double getMagnitude()
+	{
+		// Stores the sum of squares
+		// of coordinates of a vector
+		double sum = this.x * this.x + this.y * this.y + this.z * this.z;
+
+		// Return the magnitude
+		return Math.sqrt(sum);
+	}
 }

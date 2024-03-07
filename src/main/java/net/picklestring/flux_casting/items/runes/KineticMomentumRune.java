@@ -39,6 +39,8 @@ public class KineticMomentumRune extends RuneItem{
 		entity.addVelocity(vec.VectorToVec3d());
 		entity.velocityModified = true;
 
+		consumeFlux(Math.round((float)Math.floor(7*(float)vec.getMagnitude())), caster);
+
 		data = new Object[data.length];
 	}
 

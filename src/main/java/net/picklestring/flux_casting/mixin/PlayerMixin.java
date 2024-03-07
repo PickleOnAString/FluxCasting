@@ -37,10 +37,4 @@ public class PlayerMixin {
 			}
 		}
 	}
-
-	@Inject(method="writeCustomDataToNbt", at=@At("TAIL"))
-	private void writeCustomData(NbtCompound nbt, CallbackInfo ci)
-	{
-		nbt.p
-	}
 }
