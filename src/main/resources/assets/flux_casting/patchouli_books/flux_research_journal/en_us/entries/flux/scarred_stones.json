@@ -1,6 +1,6 @@
 {
   "name": "Scarred Stones",
-  "icon": "minecraft:writable_book",
+  "icon": "flux_casting:scarred_stone",
   "category": "flux_casting:flux_category",
   "pages": [
     {

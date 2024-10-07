@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "s": {
+      "item": "minecraft:stick"
+    },
+    "f": {
+      "tag": "flux_casting:flux_small"
+    }
+  },
+  "pattern": [
+    "  f",
+    " s ",
+    "s  "
+  ],
+  "result": {
+    "count": 1,
+    "item": "flux_casting:flux_wand"
+  }
+}

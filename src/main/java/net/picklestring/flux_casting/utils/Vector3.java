@@ -2,6 +2,7 @@ package net.picklestring.flux_casting.utils;
 
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
+import org.quiltmc.loader.impl.lib.sat4j.core.Vec;
 
 public class Vector3 {
 	private double x;
@@ -39,6 +40,20 @@ public class Vector3 {
 	public Vector3 setZ(double value) {
 		this.z = value;
         return this;
+	}
+
+	public Vector3 multiply(double value) {
+		this.x*=value;
+		this.y*=value;
+		this.z*=value;
+		return this;
+	}
+
+	public Vector3 add(Vector3 value) {
+		this.x+=value.x;
+		this.y+=value.y;
+		this.z+=value.z;
+		return this;
 	}
 
 	public Vec3i VectorToVec3i()

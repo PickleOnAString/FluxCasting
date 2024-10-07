@@ -173,9 +173,13 @@ public abstract class RuneItem extends Item {
 		}
 	}
 
-	public void consumeFlux(int amount, PlayerEntity caster)
-	{
+	public void consumeFlux(int amount, PlayerEntity caster) {
 		InternalizedFluxComponent component = ComponentRegistry.INTERNALIZED_FLUX.get(caster);
 		component.setValue(component.getValue()-amount);
+	}
+
+	public boolean canCastFluxCost(int amount, PlayerEntity caster) {
+		InternalizedFluxComponent component = ComponentRegistry.INTERNALIZED_FLUX.get(caster);
+		return component.getValue() >= amount;
 	}
 }

@@ -22,5 +22,7 @@
 
   "itemGroup.flux_casting.misc_group": "Flux Casting Misc Items",
 
-  "item.flux_casting.flux_research_journal.name": "Flux Research Journal"
+  "item.flux_casting.flux_research_journal.name": "Flux Research Journal",
+
+  "casting.flux_casting.out_of_flux": "Out of flux"
 }

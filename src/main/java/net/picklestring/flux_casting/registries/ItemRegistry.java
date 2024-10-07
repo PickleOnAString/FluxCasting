@@ -26,15 +26,17 @@ public class ItemRegistry {
 	public static final FluxWand FLUX_WAND = new FluxWand(new QuiltItemSettings());
 
 	public static final BlockItem RIFT_BENCH = new BlockItem(BlockRegistry.RIFT_BENCH, new QuiltItemSettings());
+	public static final BlockItem RUNE_TABLE = new BlockItem(BlockRegistry.RUNE_TABLE, new QuiltItemSettings());
 
 	public static void Register() {
 		Registry.register(Registries.ITEM, new Identifier(FluxCasting.ModID, "blank_rune"), BLANK_RUNE);
 		Registry.register(Registries.ITEM, new Identifier(FluxCasting.ModID, "flux_bottle"), FLUX_BOTTLE);
 		Registry.register(Registries.ITEM, new Identifier(FluxCasting.ModID, "scarred_stone"), SCARRED_STONE);
 		Registry.register(Registries.ITEM, new Identifier(FluxCasting.ModID, "bottle_o_scarred_stone"), BOTTLE_O_SCARRED_STONE);
-		Registry.register(Registries.ITEM, new Identifier(FluxCasting.ModID, "rift_bench"), RIFT_BENCH);
 		Registry.register(Registries.ITEM, new Identifier(FluxCasting.ModID, "ring"), RING);
 		Registry.register(Registries.ITEM, new Identifier(FluxCasting.ModID, "flux_wand"), FLUX_WAND);
+		Registry.register(Registries.ITEM, new Identifier(FluxCasting.ModID, "rift_bench"), RIFT_BENCH);
+		Registry.register(Registries.ITEM, new Identifier(FluxCasting.ModID, "rune_table"), RUNE_TABLE);
 	}
 
 	public static void GenerateItemModels(ItemModelGenerator itemModelGenerator) {

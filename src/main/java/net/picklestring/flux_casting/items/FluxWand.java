@@ -63,7 +63,7 @@ public class FluxWand extends Item {
 
 	public void executeRunes(DefaultedList<ItemStack> inventory, PlayerEntity player, World world)
 	{
-		if (world.isClient) return;
+		if (world.isClient || player.isSneaking()) return;
 
 		for(int i = 0; i < inventory.size(); i++)
 		{

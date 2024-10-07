@@ -63,16 +63,10 @@ public class RiftBench extends HorizontalFacingBlock implements BlockEntityProvi
 
 	@Override
 	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-		FluxCasting.LOGGER.info("used");
 		if (!world.isClient) {
-			FluxCasting.LOGGER.info("on server");
-			//This will call the createScreenHandlerFactory method from BlockWithEntity, which will return our blockEntity casted to
-			//a namedScreenHandlerFactory. If your block class does not extend BlockWithEntity, it needs to implement createScreenHandlerFactory.
 			NamedScreenHandlerFactory screenHandlerFactory = state.get(PART) == Part.MAIN ? state.createScreenHandlerFactory(world, pos) : world.getBlockState(pos.offset(getDirectionTowardsOtherPart(state.get(PART), state.get(FACING)))).createScreenHandlerFactory(world, pos.offset(getDirectionTowardsOtherPart(state.get(PART), state.get(FACING))));
 
 			if (screenHandlerFactory != null) {
-				FluxCasting.LOGGER.info("opening screen");
-				//With this call the server will request the client to open the appropriate Screenhandler
 				player.openHandledScreen(screenHandlerFactory);
 			}
 		}
