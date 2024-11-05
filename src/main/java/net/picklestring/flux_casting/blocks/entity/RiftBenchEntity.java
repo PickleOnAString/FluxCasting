@@ -4,9 +4,12 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.recipe.RecipeEntry;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
@@ -63,17 +66,17 @@ public class RiftBenchEntity extends BlockEntity implements NamedScreenHandlerFa
 
 
 	@Override
-	public void readNbt(NbtCompound nbt) {
-		super.readNbt(nbt);
-		Inventories.readNbt(nbt, this.inventory);
+	public void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
+		super.readNbt(nbt, registryLookup);
+		Inventories.readNbt(nbt, this.inventory, registryLookup);
 		infusionTime = nbt.getInt("infusion_time");
         isInfusing = nbt.getBoolean("is_infusing");
 	}
 
 	@Override
-	public void writeNbt(NbtCompound nbt) {
-		super.writeNbt(nbt);
-		Inventories.writeNbt(nbt, this.inventory);
+	public void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
+		super.writeNbt(nbt, registryLookup);
+		Inventories.writeNbt(nbt, this.inventory, registryLookup);
 		nbt.putInt("infusion_time", infusionTime);
 		nbt.putBoolean("is_infusing", isInfusing);
 	}
@@ -98,7 +101,7 @@ public class RiftBenchEntity extends BlockEntity implements NamedScreenHandlerFa
 	public static void tick(World world, BlockPos blockPos, BlockState blockState, RiftBenchEntity riftBenchEntity) {
 		if (riftBenchEntity.isInfusing) {
 			riftBenchEntity.infusionTime++;
-			Optional<RiftBenchRecipe> match = world.getRecipeManager().getFirstMatch(RiftBenchRecipe.RiftBenchRecipeType.INSTANCE, (RiftBenchEntity)world.getBlockEntity(blockPos), world);
+			Optional<RecipeEntry<RiftBenchRecipe>> match = world.getRecipeManager().getFirstMatch(RiftBenchRecipe.RiftBenchRecipeType.INSTANCE, ImplementedInventory.of(riftBenchEntity.inventory).createRecipeInput(), world);
 			if (match.isEmpty())
 			{
 				riftBenchEntity.setIsInfusing(false);
@@ -110,7 +113,7 @@ public class RiftBenchEntity extends BlockEntity implements NamedScreenHandlerFa
 				riftBenchEntity.setIsInfusing(false);
 
 				ImplementedInventory implInventory = (RiftBenchEntity)world.getBlockEntity(blockPos);
-				RiftBenchRecipe recipe = match.get();
+				RiftBenchRecipe recipe = match.get().value();
 				for (int i = 0; i < implInventory.size(); i++)
 				{
 					ItemStack stack = implInventory.getStack(i);

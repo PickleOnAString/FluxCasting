@@ -9,6 +9,9 @@ import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.util.Identifier;
+import net.picklestring.flux_casting.FluxCasting;
 
 import java.util.UUID;
 
@@ -17,12 +20,13 @@ public class Ring extends TrinketItem {
 		super(settings);
 	}
 
-	public Multimap<EntityAttribute, EntityAttributeModifier> getModifiers(ItemStack stack, SlotReference slot, LivingEntity entity, UUID uuid) {
-		var modifiers = super.getModifiers(stack, slot, entity, uuid);
+	@Override
+	public Multimap<RegistryEntry<EntityAttribute>, EntityAttributeModifier> getModifiers(ItemStack stack, SlotReference slot, LivingEntity entity, Identifier SlotIdentifier) {
+		var modifiers = super.getModifiers(stack, slot, entity, SlotIdentifier);
 		// +10% movement speed
-		modifiers.put(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(uuid, "guidemod:movement_speed", 0.1, EntityAttributeModifier.Operation.MULTIPLY_TOTAL));
+		modifiers.put(EntityAttributes.GENERIC_MOVEMENT_SPEED, new EntityAttributeModifier(SlotIdentifier, 0.1, EntityAttributeModifier.Operation.ADD_MULTIPLIED_BASE));
 		// If the player has access to ring slots, this will give them an extra one
-		SlotAttributes.addSlotModifier(modifiers, "hand/ring", uuid, 1, EntityAttributeModifier.Operation.ADDITION);
+		SlotAttributes.addSlotModifier(modifiers, "hand/ring", SlotIdentifier, 1, EntityAttributeModifier.Operation.ADD_VALUE);
 		return modifiers;
 	}
 }

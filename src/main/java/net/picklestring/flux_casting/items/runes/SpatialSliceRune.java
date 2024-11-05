@@ -1,10 +1,7 @@
 package net.picklestring.flux_casting.items.runes;
 
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.Vec3d;
@@ -15,18 +12,18 @@ import net.picklestring.flux_casting.utils.Vector3;
 
 import java.lang.reflect.Type;
 
-public class SoulTrackerRune extends RuneItem {
-	public SoulTrackerRune(Settings settings) {
+public class SpatialSliceRune extends RuneItem {
+	public SpatialSliceRune(Settings settings) {
 		super(settings,
 			new Type[][]{
-				new Type[]{
-					LivingEntity.class
-				}
+				new Type[]{Vector3.class}
 			},
 			new Type[]{
-				Vector3.class
+				Double.class,
+				Double.class,
+				Double.class
 			},
-			Identifier.of(FluxCasting.ModID, "textures/gui/rune_overlay/get_position_rune_overlay.png")
+			Identifier.of(FluxCasting.ModID, "textures/gui/rune_overlay/extract_x_rune_overlay.png")
 		);
 	}
 
@@ -43,21 +40,29 @@ public class SoulTrackerRune extends RuneItem {
 		else {
 			stringPartOrStackPop(context, inventory, runeIndex, 0);
 		}
-
-		LivingEntity entity = null;
+		Vector3 posData = null;
 
 		if (isDataNull(caster, inventory, runeIndex, 0)) return new Object[] { null };
 
-		if (data[0] instanceof LivingEntity) {
-			entity = (LivingEntity)data[0];
+		if (data[0] instanceof String) {
+			String[] strs = ((String) data[0]).split(" ?,?");
+			if (strs.length != 3) {
+				sendMisMatchedTypeError(caster, runeIndex, 0);
+				return new Object[] { null };
+			};
+			posData = new Vector3(Double.parseDouble(strs[0]), Double.parseDouble(strs[1]), Double.parseDouble(strs[2]));
+		} else if (data[0] instanceof Vector3) {
+			posData = (Vector3)data[0];
 		}else {
 			sendMisMatchedTypeError(caster, runeIndex, 0);
 			return new Object[] { null };
 		}
 
-		data = new Object[data.length];
+		data = new Object[dataFormat.length];
 		return new Object[]{
-			Vector3.Vec3dToVector3(entity.getPos())
+			posData.getX(),
+			posData.getY(),
+			posData.getZ()
 		};
 	}
 }

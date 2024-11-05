@@ -2,7 +2,8 @@ package net.picklestring.flux_casting.gui.hud;
 
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.util.Identifier;
 import net.picklestring.flux_casting.FluxCasting;
 import net.picklestring.flux_casting.InternalizedFluxComponent;
@@ -10,11 +11,11 @@ import net.picklestring.flux_casting.registries.ComponentRegistry;
 import net.picklestring.flux_casting.registries.ItemRegistry;
 
 public class FluxBar implements HudRenderCallback {
-	public static Identifier FLUX_BAR_BACKGROUND_TEXTURE = new Identifier(FluxCasting.ModID, "textures/gui/hud/flux_bar_background.png");
-	public static Identifier FLUX_BAR_FILL_TEXTURE = new Identifier(FluxCasting.ModID, "textures/gui/hud/flux_bar_fill.png");
+	public static Identifier FLUX_BAR_BACKGROUND_TEXTURE = Identifier.of(FluxCasting.ModID, "textures/gui/hud/flux_bar_background.png");
+	public static Identifier FLUX_BAR_FILL_TEXTURE = Identifier.of(FluxCasting.ModID, "textures/gui/hud/flux_bar_fill.png");
 
 	@Override
-	public void onHudRender(GuiGraphics drawContext, float tickDelta) {
+	public void onHudRender(DrawContext drawContext, RenderTickCounter renderTickCounter) {
 		int x = 0;
 		int y = 0;
 		int fillPercent = 0;

@@ -2,7 +2,7 @@ package net.picklestring.flux_casting.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.block.BlockEntityProvider;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.texture.Sprite;
@@ -15,10 +15,10 @@ import net.picklestring.flux_casting.FluxCasting;
 import net.picklestring.flux_casting.items.runes.RuneItem;
 
 public class RuneTableScreen extends HandledScreen<RuneTableScreenHandler> {
-	private static final Identifier TEXTURE = new Identifier(FluxCasting.ModID, "textures/gui/rune_table_screen.png");
-	private static final Identifier TEXTURE_FLUX_INPUT = new Identifier(FluxCasting.ModID, "textures/gui/rune_table_screen_flux_input.png");
+	private static final Identifier TEXTURE = Identifier.of(FluxCasting.ModID, "textures/gui/rune_table_screen.png");
+	private static final Identifier TEXTURE_FLUX_INPUT = Identifier.of(FluxCasting.ModID, "textures/gui/rune_table_screen_flux_input.png");
 
-	private static final Identifier RUNE_OVERLAY = new Identifier(FluxCasting.ModID, "textures/gui/rune_overlay/debug_rune_overlay.png");
+	private static final Identifier RUNE_OVERLAY = Identifier.of(FluxCasting.ModID, "textures/gui/rune_overlay/debug_rune_overlay.png");
 
 	public RuneTableScreen(RuneTableScreenHandler handler, PlayerInventory inventory, Text title) {
 		super(handler, inventory, title);
@@ -34,8 +34,8 @@ public class RuneTableScreen extends HandledScreen<RuneTableScreenHandler> {
 	}
 
 	@Override
-	protected void drawBackground(GuiGraphics graphics, float delta, int mouseX, int mouseY) {
-		RenderSystem.setShader(GameRenderer::getPositionTexShader);
+	protected void drawBackground(DrawContext graphics, float delta, int mouseX, int mouseY) {
+		RenderSystem.setShader(GameRenderer::getPositionTexProgram);
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 		RenderSystem.setShaderTexture(0, TEXTURE);
 		int x = (width - backgroundWidth) / 2;
@@ -51,7 +51,7 @@ public class RuneTableScreen extends HandledScreen<RuneTableScreenHandler> {
 		}
 	}
 
-	protected void drawOverlay(GuiGraphics graphics, int mouseX, int mouseY)
+	protected void drawOverlay(DrawContext graphics, int mouseX, int mouseY)
 	{
 		int x = (width - backgroundWidth) / 2;
 		int y = (height - backgroundHeight) / 2;
@@ -66,8 +66,8 @@ public class RuneTableScreen extends HandledScreen<RuneTableScreenHandler> {
 	}
 
 	@Override
-	public void render(GuiGraphics graphics, int mouseX, int mouseY, float delta) {
-		renderBackground(graphics);
+	public void render(DrawContext graphics, int mouseX, int mouseY, float delta) {
+		renderBackground(graphics, mouseX, mouseY, delta);
 		super.render(graphics, mouseX, mouseY, delta);
 		drawOverlay(graphics, mouseX, mouseY);
 		drawMouseoverTooltip(graphics, mouseX, mouseY);

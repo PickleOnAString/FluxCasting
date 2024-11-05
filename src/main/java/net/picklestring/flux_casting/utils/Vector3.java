@@ -2,7 +2,6 @@ package net.picklestring.flux_casting.utils;
 
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
-import org.quiltmc.loader.impl.lib.sat4j.core.Vec;
 
 public class Vector3 {
 	private double x;

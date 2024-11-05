@@ -11,13 +11,13 @@ import net.minecraft.block.BlockState;
 import net.minecraft.client.render.model.*;
 import net.minecraft.client.render.model.json.ModelOverrideList;
 import net.minecraft.client.render.model.json.ModelTransformation;
-import net.minecraft.client.resource.Material;
 import net.minecraft.client.texture.*;
+import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.item.ItemStack;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.random.RandomGenerator;
+import net.minecraft.util.math.random.Random;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
@@ -27,7 +27,7 @@ import java.util.function.Supplier;
 
 public class RingModel implements UnbakedModel, BakedModel, FabricBakedModel {
 	@Override
-	public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction face, RandomGenerator random) {
+	public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction face, Random random) {
 		return null;
 	}
 
@@ -72,18 +72,18 @@ public class RingModel implements UnbakedModel, BakedModel, FabricBakedModel {
 	}
 
 	@Override
-	public void resolveParents(Function<Identifier, UnbakedModel> models) {
+	public void setParents(Function<Identifier, UnbakedModel> modelLoader) {
 
 	}
 
 	@Nullable
 	@Override
-	public BakedModel bake(ModelBaker modelBaker, Function<Material, Sprite> textureGetter, ModelBakeSettings rotationContainer, Identifier modelId) {
+	public BakedModel bake(Baker baker, Function<SpriteIdentifier, Sprite> textureGetter, ModelBakeSettings rotationContainer) {
 		return this;
 	}
 
 	@Override
-	public void emitItemQuads(ItemStack itemStack, Supplier<RandomGenerator> supplier, RenderContext renderContext) {
+	public void emitItemQuads(ItemStack itemStack, Supplier<Random> supplier, RenderContext renderContext) {
 		/*Mesh mesh;
 		Sprite sprite = SpriteAtlas
 

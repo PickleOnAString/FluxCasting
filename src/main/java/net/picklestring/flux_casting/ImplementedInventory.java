@@ -1,17 +1,24 @@
 package net.picklestring.flux_casting;
 
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.RecipeInputInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.recipe.RecipeInputProvider;
+import net.minecraft.recipe.RecipeMatcher;
+import net.minecraft.recipe.input.CraftingRecipeInput;
 import net.minecraft.util.collection.DefaultedList;
+
+import java.util.Iterator;
 
 /**
  * A simple {@code Inventory} implementation with only default methods + an item list getter.
  *
  * Originally by Juuz
  */
-public interface ImplementedInventory extends Inventory {
+public interface ImplementedInventory extends Inventory, RecipeInputProvider {
 
 	/**
 	 * Retrieves the item list of this inventory.
@@ -127,6 +134,21 @@ public interface ImplementedInventory extends Inventory {
 	@Override
 	default boolean canPlayerUse(PlayerEntity player) {
 		return true;
+	}
+
+	@Override
+	default void provideRecipeInputs(RecipeMatcher finder) {
+		Iterator var2 = this.getItems().iterator();
+
+		while(var2.hasNext()) {
+			ItemStack itemStack = (ItemStack)var2.next();
+			finder.addUnenchantedInput(itemStack);
+		}
+
+	}
+
+	default CraftingRecipeInput createRecipeInput() {
+		return CraftingRecipeInput.create(10, 10, getItems());
 	}
 
 	public class EMPTY implements ImplementedInventory

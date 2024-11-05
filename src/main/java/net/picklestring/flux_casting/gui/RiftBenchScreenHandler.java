@@ -4,6 +4,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
@@ -108,13 +109,13 @@ public class RiftBenchScreenHandler extends ScreenHandler {
 		}
 		inventory.setStack(0, recipe.outputStack.copy());
 		((RiftBenchEntity)world.getBlockEntity(pos)).isInfusing = true;*/
-		Optional<RiftBenchRecipe> match = world.getRecipeManager().getFirstMatch(RiftBenchRecipe.RiftBenchRecipeType.INSTANCE, inventory, world);
+		Optional<RecipeEntry<RiftBenchRecipe>> match = world.getRecipeManager().getFirstMatch(RiftBenchRecipe.RiftBenchRecipeType.INSTANCE, inventory.createRecipeInput(), world);
 		if (match.isPresent()) ((RiftBenchEntity)world.getBlockEntity(pos)).setIsInfusing(true);
 	}
 
 	// Shift + Player Inv Slot
 	@Override
-	public ItemStack quickTransfer(PlayerEntity player, int invSlot) {
+	public ItemStack quickMove(PlayerEntity player, int invSlot) {
 		ItemStack newStack = ItemStack.EMPTY;
 		Slot slot = this.slots.get(invSlot);
 		if (slot != null && slot.hasStack()) {

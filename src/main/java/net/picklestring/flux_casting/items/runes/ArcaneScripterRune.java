@@ -3,37 +3,53 @@ package net.picklestring.flux_casting.items.runes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.picklestring.flux_casting.FluxCasting;
+import net.picklestring.flux_casting.utils.CastingContext;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
+import java.util.Stack;
 
 public class ArcaneScripterRune extends RuneItem {
 	public ArcaneScripterRune(Settings settings) {
 		super(settings,
-			new Type[][]{ new Type[]{String.class, Number.class} },
-			null,
-			new Identifier(FluxCasting.ModID, "textures/gui/rune_overlay/debug_rune_overlay.png"));
+			new Type[][]{
+				new Type[]{
+					String.class,
+					Number.class}
+			},
+			new Type[]{
+				null
+			},
+			Identifier.of(FluxCasting.ModID, "textures/gui/rune_overlay/debug_rune_overlay.png")
+		);
 	}
 
 	@Override
-	public void onCast(DefaultedList<ItemStack> inventory, int index, PlayerEntity caster, Vec3d pos, World world) {
-		executeInserters(inventory, index, caster, pos, world);
+	public void onCast(DefaultedList<ItemStack> inventory, int index, PlayerEntity caster, Vec3d pos, World world, CastingContext context) {
+		String debugString = "";
 
-		String debugString;
-		if (data[0] == null) {
-			debugString = getStringPartOrDefault(1, "", inventory.get(index));
+		if (!context.isStack) {
+			executeInserters(inventory, index, caster, pos, world, context);
 		}
 		else {
-			if (data[0] instanceof Number) {
-				debugString = getDataOrDefault(0, 0d, Number.class).toString();
-			} else {
-				debugString = getDataOrDefault(0, getStringPartOrDefault(1, "", inventory.get(index)), String.class);
-			}
+			stringPartOrStackPop(context, inventory, index, 0);
+		}
+
+		if (isDataNull(caster, inventory, index, 0)) return;
+
+		if (data[0] instanceof Number) {
+			debugString = ((Number)data[0]).toString();
+		} else if (data[0] instanceof String) {
+			debugString = (String)data[0];
+		}
+		else {
+			sendMisMatchedTypeError(caster, index, 0);
+			return;
 		}
 
 		caster.sendMessage(Text.literal(debugString), false);
@@ -42,7 +58,7 @@ public class ArcaneScripterRune extends RuneItem {
 	}
 
 	@Override
-	public Object getValue(DefaultedList<ItemStack> inventory, int runeIndex, PlayerEntity caster, Vec3d pos, World world) {
+	public Object[] getValue(DefaultedList<ItemStack> inventory, int runeIndex, PlayerEntity caster, Vec3d pos, World world, CastingContext context) {
 		return null;
 	}
 }

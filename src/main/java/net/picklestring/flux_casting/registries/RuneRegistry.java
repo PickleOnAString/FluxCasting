@@ -1,56 +1,56 @@
 package net.picklestring.flux_casting.registries;
 
 import net.minecraft.data.client.ItemModelGenerator;
-import net.minecraft.data.client.model.Model;
+import net.minecraft.data.client.Model;
+import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.picklestring.flux_casting.FluxCasting;
 import net.picklestring.flux_casting.items.runes.*;
-import org.quiltmc.qsl.item.setting.api.QuiltItemSettings;
 
 import java.util.Optional;
 
 public class RuneRegistry {
-	public static final ArcaneScripterRune ARCANE_SCRIPTER_RUNE = new ArcaneScripterRune(new QuiltItemSettings());
-	public static final KineticMomentumRune KINETIC_MOMENTUM_RUNE = new KineticMomentumRune(new QuiltItemSettings());
-	public static final RendStoneRune REND_STONE_RUNE = new RendStoneRune(new QuiltItemSettings());
+	public static final ArcaneScripterRune ARCANE_SCRIPTER_RUNE = new ArcaneScripterRune(new Item.Settings());
+	public static final KineticMomentumRune KINETIC_MOMENTUM_RUNE = new KineticMomentumRune(new Item.Settings());
+	public static final RendStoneRune REND_STONE_RUNE = new RendStoneRune(new Item.Settings());
 
-	public static final RunicConduitRune RUNIC_CONDUIT_RUNE = new RunicConduitRune(new QuiltItemSettings(), RunicConduitRune.Direction.Right, RunicConduitRune.Direction.Left);
-	public static final RunicConduitRune RUNIC_CONDUIT_RIGHT_LEFT_RUNE = new RunicConduitRune(new QuiltItemSettings(), RunicConduitRune.Direction.Left, RunicConduitRune.Direction.Right);
-	public static final RunicConduitRune RUNIC_CONDUIT_UP_DOWN_RUNE = new RunicConduitRune(new QuiltItemSettings(), RunicConduitRune.Direction.Down, RunicConduitRune.Direction.Up);
+	public static final RunicConduitRune RUNIC_CONDUIT_RUNE = new RunicConduitRune(new Item.Settings(), RunicConduitRune.Direction.Right, RunicConduitRune.Direction.Left);
+	public static final RunicConduitRune RUNIC_CONDUIT_RIGHT_LEFT_RUNE = new RunicConduitRune(new Item.Settings(), RunicConduitRune.Direction.Left, RunicConduitRune.Direction.Right);
+	public static final RunicConduitRune RUNIC_CONDUIT_UP_DOWN_RUNE = new RunicConduitRune(new Item.Settings(), RunicConduitRune.Direction.Down, RunicConduitRune.Direction.Up);
 
-	public static final GlyphicInscriptionRune GLYPHIC_INSCRIPTION_RUNE = new GlyphicInscriptionRune(new QuiltItemSettings());
-	public static final NumericalImbuementRune NUMERICAL_IMBUEMENT_RUNE = new NumericalImbuementRune(new QuiltItemSettings());
-	public static final SoulTrackerRune SOUL_TRACKER_RUNE = new SoulTrackerRune(new QuiltItemSettings());
-	public static final GazeAnchorRune GAZE_ANCHOR_RUNE = new GazeAnchorRune(new QuiltItemSettings());
-	public static final NumericalNexusRune NUMERICAL_NEXUS_RUNE = new NumericalNexusRune(new QuiltItemSettings());
-	public static final SpatialSliceXRune SPATIAL_SLICE_X_RUNE = new SpatialSliceXRune(new QuiltItemSettings());
-	public static final SummonersEchoRune SUMMONERS_ECHO_RUNE = new SummonersEchoRune(new QuiltItemSettings());
-	public static final SightlineSeekerRune SIGHTLINE_SEEKER_RUNE = new SightlineSeekerRune(new QuiltItemSettings());
-	public static final TargetPerceptionRune TARGET_PERCEPTION_RUNE = new TargetPerceptionRune(new QuiltItemSettings());
+	public static final GlyphicInscriptionRune GLYPHIC_INSCRIPTION_RUNE = new GlyphicInscriptionRune(new Item.Settings());
+	public static final NumericalImbuementRune NUMERICAL_IMBUEMENT_RUNE = new NumericalImbuementRune(new Item.Settings());
+	public static final SoulTrackerRune SOUL_TRACKER_RUNE = new SoulTrackerRune(new Item.Settings());
+	public static final GazeAnchorRune GAZE_ANCHOR_RUNE = new GazeAnchorRune(new Item.Settings());
+	public static final NumericalNexusRune NUMERICAL_NEXUS_RUNE = new NumericalNexusRune(new Item.Settings());
+	public static final SpatialSliceRune SPATIAL_SLICE_X_RUNE = new SpatialSliceRune(new Item.Settings());
+	public static final SummonersEchoRune SUMMONERS_ECHO_RUNE = new SummonersEchoRune(new Item.Settings());
+	public static final SightlineSeekerRune SIGHTLINE_SEEKER_RUNE = new SightlineSeekerRune(new Item.Settings());
+	public static final TargetPerceptionRune TARGET_PERCEPTION_RUNE = new TargetPerceptionRune(new Item.Settings());
 
-	public static final Identifier ACTION_RUNE_TEMPLATE = new Identifier(FluxCasting.ModID, "item/template_action_rune");
-	public static final Identifier FLOW_RUNE_TEMPLATE = new Identifier(FluxCasting.ModID, "item/template_flow_rune");
-	public static final Identifier DATA_RUNE_TEMPLATE = new Identifier(FluxCasting.ModID, "item/template_data_rune");
+	public static final Identifier ACTION_RUNE_TEMPLATE = Identifier.of(FluxCasting.ModID, "item/template_action_rune");
+	public static final Identifier FLOW_RUNE_TEMPLATE = Identifier.of(FluxCasting.ModID, "item/template_flow_rune");
+	public static final Identifier DATA_RUNE_TEMPLATE = Identifier.of(FluxCasting.ModID, "item/template_data_rune");
 
 	public static void Register()
 	{
-		Registry.register(Registries.ITEM, new Identifier(FluxCasting.ModID, "arcane_scripter_rune"), ARCANE_SCRIPTER_RUNE);
-		Registry.register(Registries.ITEM, new Identifier(FluxCasting.ModID, "runic_conduit_rune"), RUNIC_CONDUIT_RUNE);
-		Registry.register(Registries.ITEM, new Identifier(FluxCasting.ModID, "glyphic_inscription_rune"), GLYPHIC_INSCRIPTION_RUNE);
-		Registry.register(Registries.ITEM, new Identifier(FluxCasting.ModID, "numerical_imbuement_rune"), NUMERICAL_IMBUEMENT_RUNE);
-		Registry.register(Registries.ITEM, new Identifier(FluxCasting.ModID, "soul_tracker_rune"), SOUL_TRACKER_RUNE);
-		Registry.register(Registries.ITEM, new Identifier(FluxCasting.ModID, "gaze_anchor_rune"), GAZE_ANCHOR_RUNE);
-		Registry.register(Registries.ITEM, new Identifier(FluxCasting.ModID, "numerical_nexus_rune"), NUMERICAL_NEXUS_RUNE);
-		Registry.register(Registries.ITEM, new Identifier(FluxCasting.ModID, "spatial_slice_x_rune"), SPATIAL_SLICE_X_RUNE);
-		Registry.register(Registries.ITEM, new Identifier(FluxCasting.ModID, "kinetic_momentum_rune"), KINETIC_MOMENTUM_RUNE);
-		Registry.register(Registries.ITEM, new Identifier(FluxCasting.ModID, "summoners_echo_rune"), SUMMONERS_ECHO_RUNE);
-		Registry.register(Registries.ITEM, new Identifier(FluxCasting.ModID, "sightline_seeker_rune"), SIGHTLINE_SEEKER_RUNE);
-		Registry.register(Registries.ITEM, new Identifier(FluxCasting.ModID, "runic_conduit_right_left_rune"), RUNIC_CONDUIT_RIGHT_LEFT_RUNE);
-		Registry.register(Registries.ITEM, new Identifier(FluxCasting.ModID, "target_perception_rune"), TARGET_PERCEPTION_RUNE);
-		Registry.register(Registries.ITEM, new Identifier(FluxCasting.ModID, "rend_stone_rune"), REND_STONE_RUNE);
-		Registry.register(Registries.ITEM, new Identifier(FluxCasting.ModID, "runic_conduit_up_down_rune"), RUNIC_CONDUIT_UP_DOWN_RUNE);
+		Registry.register(Registries.ITEM, Identifier.of(FluxCasting.ModID, "arcane_scripter_rune"), ARCANE_SCRIPTER_RUNE);
+		Registry.register(Registries.ITEM, Identifier.of(FluxCasting.ModID, "runic_conduit_rune"), RUNIC_CONDUIT_RUNE);
+		Registry.register(Registries.ITEM, Identifier.of(FluxCasting.ModID, "glyphic_inscription_rune"), GLYPHIC_INSCRIPTION_RUNE);
+		Registry.register(Registries.ITEM, Identifier.of(FluxCasting.ModID, "numerical_imbuement_rune"), NUMERICAL_IMBUEMENT_RUNE);
+		Registry.register(Registries.ITEM, Identifier.of(FluxCasting.ModID, "soul_tracker_rune"), SOUL_TRACKER_RUNE);
+		Registry.register(Registries.ITEM, Identifier.of(FluxCasting.ModID, "gaze_anchor_rune"), GAZE_ANCHOR_RUNE);
+		Registry.register(Registries.ITEM, Identifier.of(FluxCasting.ModID, "numerical_nexus_rune"), NUMERICAL_NEXUS_RUNE);
+		Registry.register(Registries.ITEM, Identifier.of(FluxCasting.ModID, "spatial_slice_x_rune"), SPATIAL_SLICE_X_RUNE);
+		Registry.register(Registries.ITEM, Identifier.of(FluxCasting.ModID, "kinetic_momentum_rune"), KINETIC_MOMENTUM_RUNE);
+		Registry.register(Registries.ITEM, Identifier.of(FluxCasting.ModID, "summoners_echo_rune"), SUMMONERS_ECHO_RUNE);
+		Registry.register(Registries.ITEM, Identifier.of(FluxCasting.ModID, "sightline_seeker_rune"), SIGHTLINE_SEEKER_RUNE);
+		Registry.register(Registries.ITEM, Identifier.of(FluxCasting.ModID, "runic_conduit_right_left_rune"), RUNIC_CONDUIT_RIGHT_LEFT_RUNE);
+		Registry.register(Registries.ITEM, Identifier.of(FluxCasting.ModID, "target_perception_rune"), TARGET_PERCEPTION_RUNE);
+		Registry.register(Registries.ITEM, Identifier.of(FluxCasting.ModID, "rend_stone_rune"), REND_STONE_RUNE);
+		Registry.register(Registries.ITEM, Identifier.of(FluxCasting.ModID, "runic_conduit_up_down_rune"), RUNIC_CONDUIT_UP_DOWN_RUNE);
 	}
 
 	public static void GenerateItemModels(ItemModelGenerator itemModelGenerator) {

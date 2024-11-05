@@ -1,11 +1,10 @@
 package net.picklestring.flux_casting;
 
-import dev.onyxstudios.cca.api.v3.component.ComponentKey;
-import dev.onyxstudios.cca.api.v3.component.ComponentRegistry;
+import net.fabricmc.api.ModInitializer;
+import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
 import net.picklestring.flux_casting.registries.*;
-import org.quiltmc.loader.api.ModContainer;
-import org.quiltmc.qsl.base.api.entrypoint.ModInitializer;
+import net.fabricmc.loader.api.ModContainer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,8 +17,7 @@ public class FluxCasting implements ModInitializer {
 	public static final Logger LOGGER = LoggerFactory.getLogger("Flux Casting");
 
 	@Override
-	public void onInitialize(ModContainer mod) {
-		LOGGER.info("Hello Quilt world from {}!", mod.metadata().name());
+	public void onInitialize() {
 		InitRegistries();
 	}
 
@@ -30,7 +28,7 @@ public class FluxCasting implements ModInitializer {
 		BlockEntityRegistry.Register();
 		ParticleRegistry.Register();
 		ItemGroupRegistry.Register();
-		ScreenRegistry.Register();
 		RecipeRegistry.Register();
+		ItemComponentRegistry.Register();
     }
 }

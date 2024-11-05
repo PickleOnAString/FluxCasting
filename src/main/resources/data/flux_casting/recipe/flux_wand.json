@@ -15,7 +15,7 @@
     "s  "
   ],
   "result": {
-    "count": 1,
-    "item": "flux_casting:flux_wand"
+    "id": "flux_casting:flux_wand",
+    "count": 1
   }
 }

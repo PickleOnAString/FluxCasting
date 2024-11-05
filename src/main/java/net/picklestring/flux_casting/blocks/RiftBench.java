@@ -1,5 +1,6 @@
 package net.picklestring.flux_casting.blocks;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
@@ -27,14 +28,19 @@ import net.picklestring.flux_casting.blocks.entity.RiftBenchEntity;
 import net.picklestring.flux_casting.registries.BlockEntityRegistry;
 import org.jetbrains.annotations.Nullable;
 
-@SuppressWarnings("deprecation")
 public class RiftBench extends HorizontalFacingBlock implements BlockEntityProvider {
 	public static final EnumProperty<Part> PART = EnumProperty.of("part", Part.class);
 	public static final BooleanProperty ACTIVE = BooleanProperty.of("active");
+	public static final MapCodec<RiftBench> CODEC = createCodec(RiftBench::new);
 
 	public RiftBench(Settings settings) {
 		super(settings.nonOpaque());
 		setDefaultState(getDefaultState().with(Properties.HORIZONTAL_FACING, Direction.NORTH).with(ACTIVE, false));
+	}
+
+	@Override
+	protected MapCodec<? extends HorizontalFacingBlock> getCodec() {
+		return CODEC;
 	}
 
 	@Override
@@ -62,7 +68,7 @@ public class RiftBench extends HorizontalFacingBlock implements BlockEntityProvi
 	}
 
 	@Override
-	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+	protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
 		if (!world.isClient) {
 			NamedScreenHandlerFactory screenHandlerFactory = state.get(PART) == Part.MAIN ? state.createScreenHandlerFactory(world, pos) : world.getBlockState(pos.offset(getDirectionTowardsOtherPart(state.get(PART), state.get(FACING)))).createScreenHandlerFactory(world, pos.offset(getDirectionTowardsOtherPart(state.get(PART), state.get(FACING))));
 
@@ -76,7 +82,7 @@ public class RiftBench extends HorizontalFacingBlock implements BlockEntityProvi
 	@Nullable
 	@Override
 	public BlockState getPlacementState(ItemPlacementContext ctx) {
-		Direction direction = ctx.getPlayerFacing().rotateClockwise(Direction.Axis.Y);
+		Direction direction = ctx.getPlayerLookDirection().rotateClockwise(Direction.Axis.Y);
 		BlockPos blockPos = ctx.getBlockPos();
 		BlockPos blockPos2 = blockPos.offset(direction);
 		World world = ctx.getWorld();
@@ -84,7 +90,7 @@ public class RiftBench extends HorizontalFacingBlock implements BlockEntityProvi
 	}
 
 	@Override
-	public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+	public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
 		if (!world.isClient && player.isCreative()) {
 			Part part = state.get(PART);
 			if (part == Part.MAIN) {
@@ -97,7 +103,7 @@ public class RiftBench extends HorizontalFacingBlock implements BlockEntityProvi
 			}
 		}
 
-		super.onBreak(world, pos, state, player);
+		return super.onBreak(world, pos, state, player);
 	}
 
 	@Override

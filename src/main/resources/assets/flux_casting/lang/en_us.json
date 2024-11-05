@@ -14,8 +14,12 @@
   "item.flux_casting.string_input_rune": "String Input Rune",
 
   "item.flux_casting.flux_wand.spell_bound": "Spell was bound to your wand!",
-
+  "item.flux_casting.spell_holder.missing_rune": "Failed to insert spell, Missing rune: %d",
+  "item.flux_casting.spell_holder.table_not_empty": "Failed to insert spell, Empty the rune table.",
   "item.flux_casting.bottle_o_scarred_stone.tooltip": "Current infused Flux: %d/100",
+
+  "rune.flux_casting.error.missing_data": "Rune at %d is missing data at index %d.",
+  "rune.flux_casting.error.wrong_data_type": "Rune at %d has an incompatible data type at index %d: ",
 
   "block.flux_casting.rift_bench": "Rift Bench",
   "block.flux_casting.rune_table": "Rune Table",

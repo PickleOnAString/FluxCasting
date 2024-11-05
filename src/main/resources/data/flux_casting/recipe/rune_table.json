@@ -18,7 +18,7 @@
     "ppp"
   ],
   "result": {
-    "count": 1,
-    "item": "flux_casting:rune_table"
+    "id": "flux_casting:rune_table",
+    "count": 1
   }
 }

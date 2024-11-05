@@ -3,15 +3,18 @@ package net.picklestring.flux_casting.blocks.entity;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.World;
 import net.picklestring.flux_casting.registries.BlockEntityRegistry;
+import net.picklestring.flux_casting.registries.ItemComponentRegistry;
 import net.picklestring.flux_casting.registries.ItemRegistry;
 import net.picklestring.flux_casting.registries.ParticleRegistry;
 
@@ -25,16 +28,16 @@ public class FluxStoneLeakEntity extends BlockEntity {
     }
 
 	@Override
-	public void writeNbt(NbtCompound nbt) {
+	public void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
 		// Save the current value of the number to the nbt
 		nbt.putInt("flux_left", fluxLeft);
 
-		super.writeNbt(nbt);
+		super.writeNbt(nbt, registryLookup);
 	}
 
 	@Override
-	public void readNbt(NbtCompound nbt) {
-		super.readNbt(nbt);
+	public void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
+		super.readNbt(nbt, registryLookup);
 
 		fluxLeft = nbt.getInt("flux_left");
 	}
@@ -44,11 +47,11 @@ public class FluxStoneLeakEntity extends BlockEntity {
         for (ItemEntity itemEntity : FluxStoneLeakEntity.getItemsAbovePos(world, pos)) {
 			detectedEntity = true;
 			ItemStack stack = itemEntity.getStack();
-			if (stack.getNbt() == null) stack.setNbt(new NbtCompound());
-			if (!stack.getNbt().contains("infused_flux")) stack.getNbt().putInt("infused_flux", 0);
-			stack.getNbt().putInt("infused_flux", stack.getNbt().getInt("infused_flux")+1);
+			if (stack.getItem() != ItemRegistry.BOTTLE_O_SCARRED_STONE) return;
+			int flux = stack.get(ItemComponentRegistry.FLUX);
+			stack.set(ItemComponentRegistry.FLUX, flux+1);
 
-			if (stack.getNbt().getInt("infused_flux") >= 2000)
+			if (flux+1 >= 2000)
 			{
 				if (stack.getCount() > be.fluxLeft)
 				{

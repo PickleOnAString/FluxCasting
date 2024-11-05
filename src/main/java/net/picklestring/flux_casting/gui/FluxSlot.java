@@ -11,7 +11,7 @@ import net.minecraft.util.Identifier;
 import net.picklestring.flux_casting.FluxCasting;
 
 public class FluxSlot extends Slot {
-	public static TagKey<Item> FLUX_TAG = TagKey.of(RegistryKeys.ITEM, new Identifier(FluxCasting.ModID, "flux_small"));
+	public static TagKey<Item> FLUX_TAG = TagKey.of(RegistryKeys.ITEM, Identifier.of(FluxCasting.ModID, "flux_small"));
 	public FluxSlot(Inventory inventory, int index, int x, int y) {
 		super(inventory, index, x, y);
 	}

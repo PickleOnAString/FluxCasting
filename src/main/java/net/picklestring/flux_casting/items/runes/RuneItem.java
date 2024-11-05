@@ -1,11 +1,9 @@
 package net.picklestring.flux_casting.items.runes;
 
-import com.sun.jna.platform.win32.WinUser;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -13,54 +11,63 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.picklestring.flux_casting.FluxCasting;
 import net.picklestring.flux_casting.InternalizedFluxComponent;
-import net.picklestring.flux_casting.items.FluxWand;
 import net.picklestring.flux_casting.registries.ComponentRegistry;
-import org.jetbrains.annotations.Nullable;
+import net.picklestring.flux_casting.utils.CastingContext;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public abstract class RuneItem extends Item {
 	public Object[] data;
 	public Type[][] dataFormat;
-	public Type outputType;
+	public Type[] outputType;
 	public Identifier OVERLAY_TEXTURE;
 
-	public RuneItem(Settings settings, Type[][] dataFormat, Type outputType, Identifier overlayTexture) {
+	public RuneItem(Settings settings, Type[][] dataFormat, Type[] outputType, Identifier overlayTexture) {
 		super(settings);
 		this.dataFormat = dataFormat;
 		this.outputType = outputType;
 		this.OVERLAY_TEXTURE = overlayTexture;
-		data = new Object[dataFormat.length];
+		if (dataFormat != null) {
+			data = new Object[dataFormat.length];
+		}
+		else {
+			data = new Object[0];
+		}
 	}
 
 	@Override
-	public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+	public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
 		if (outputType != null) {
-			tooltip.add(Text.literal("Output: ").formatted(Formatting.GRAY).append(Text.literal(simplifyTypeName(outputType.getTypeName())).formatted(Formatting.AQUA)));
+			if (outputType.length != 0) {
+				tooltip.add(Text.literal("Output:").formatted(Formatting.GRAY));
+				for (int i = 0; i < outputType.length; i++) {
+					tooltip.add(Text.literal("  > Index ").formatted(Formatting.GRAY).append(Text.literal(String.valueOf(i)).formatted(Formatting.GOLD)).append(Text.literal(": ").formatted(Formatting.GRAY)).append(Text.literal(simplifyTypeName(outputType[i].getTypeName())).formatted(Formatting.AQUA)));
+				}
+			}
 		}
-		if (dataFormat.length != 0) {
-			tooltip.add(Text.literal("Input:").formatted(Formatting.GRAY));
-			for (int i = 0; i < dataFormat.length; i++) {
-				tooltip.add(Text.literal("  > Index ").formatted(Formatting.GRAY).append(Text.literal(String.valueOf(i)).formatted(Formatting.GOLD)).append(Text.literal(": ").formatted(Formatting.GRAY)).append(getDataText(i)));
+		if (dataFormat != null) {
+			if (dataFormat.length != 0) {
+				tooltip.add(Text.literal("Input:").formatted(Formatting.GRAY));
+				for (int i = 0; i < dataFormat.length; i++) {
+					tooltip.add(Text.literal("  > Index ").formatted(Formatting.GRAY).append(Text.literal(String.valueOf(i)).formatted(Formatting.GOLD)).append(Text.literal(": ").formatted(Formatting.GRAY)).append(getDataText(i)));
+				}
 			}
 		}
 	}
 
-	public abstract void onCast(DefaultedList<ItemStack> inventory, int index, PlayerEntity caster, Vec3d pos, World world);
-	public abstract Object getValue(DefaultedList<ItemStack> inventory, int runeIndex, PlayerEntity caster, Vec3d pos, World world);
+	public abstract void onCast(DefaultedList<ItemStack> inventory, int index, PlayerEntity caster, Vec3d pos, World world, CastingContext context);
+	public abstract Object[] getValue(DefaultedList<ItemStack> inventory, int runeIndex, PlayerEntity caster, Vec3d pos, World world, CastingContext context);
 
-	public void executeInserters(DefaultedList<ItemStack> inventory, int index, PlayerEntity caster, Vec3d pos, World world) {
+	public void executeInserters(DefaultedList<ItemStack> inventory, int index, PlayerEntity caster, Vec3d pos, World world, CastingContext context) {
 		for (int i = 0; i < 4; i++) {
 			if (RunicConduitRune.getAdjacentIndexFromDirection(index, i) >= 0 && RunicConduitRune.getAdjacentIndexFromDirection(index, i) < inventory.size()) {
 				ItemStack newItem = inventory.get(RunicConduitRune.getAdjacentIndexFromDirection(index, i));
 				if (newItem.getItem() instanceof RunicConduitRune) {
 					if (((RunicConduitRune) newItem.getItem()).insertDirection == RunicConduitRune.invertDirection(RunicConduitRune.intToDirection(i))) {
-						((RunicConduitRune) newItem.getItem()).getValue(inventory, RunicConduitRune.getAdjacentIndexFromDirection(index, RunicConduitRune.intToDirection(i)), caster, pos, world);
+						((RunicConduitRune) newItem.getItem()).getValue(inventory, RunicConduitRune.getAdjacentIndexFromDirection(index, RunicConduitRune.intToDirection(i)), caster, pos, world, context);
 					}
 				}
 			}
@@ -92,6 +99,31 @@ public abstract class RuneItem extends Item {
 		return text;
 	}
 
+	public void stringPartOrStackPop(CastingContext context, DefaultedList<ItemStack> inventory, int itemIndex, int dataIndex) {
+		data[dataIndex] = getStringPart(dataIndex+1, inventory.get(itemIndex));
+		if (data[dataIndex] == null) {
+			data[dataIndex] = context.stack.pop();
+		}
+	}
+
+	public boolean isDataNull(PlayerEntity caster, DefaultedList<ItemStack> inventory, int itemIndex, int dataIndex) {
+		if (data[dataIndex] == null) {
+			data[dataIndex] = getStringPart(1, inventory.get(itemIndex));
+			if (data[dataIndex] == null) {
+				if (caster != null) caster.sendMessage(Text.translatable("rune.flux_casting.error.missing_data", itemIndex, 0), false);
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public void sendMisMatchedTypeError(PlayerEntity caster, int itemIndex, int dataIndex) {
+		if (caster != null) caster.sendMessage(Text.translatable("rune.flux_casting.error.wrong_data_type", itemIndex, dataIndex)
+			.append(Text.literal(simplifyTypeName(data[dataIndex].getClass().getTypeName())).formatted(Formatting.AQUA))
+			.append(Text.literal(" != "))
+			.append(getDataText(dataIndex)), false);
+	}
+
 	public String simplifyTypeName(String name) {
 		String[] nameParts = name.split("\\.");
 		return nameParts[nameParts.length-1];
@@ -121,6 +153,14 @@ public abstract class RuneItem extends Item {
 		String name = itemStack.getName().getString();
 		String[] strings = name.split(" ?: ?");
 		if (index >= strings.length) return defaultString;
+		return strings[index];
+	}
+
+	public String getStringPart(int index, ItemStack itemStack) {
+		String name = itemStack.getName().getString();
+		String[] strings = name.split(" ?: ?");
+		if (index >= strings.length) return null;
+		if (Objects.equals(strings[index], "null")) return null;
 		return strings[index];
 	}
 

@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "group": "${group}",
+  "id": "flux_casting",
+  "version": "${version}",
+  "metadata": {
+    "name": "Flux Casting",
+    "description": "A short description of your mod.",
+    "contributors": {
+      "Pickle": "Lead Developer"
+    },
+    "contact": {
+      "homepage": "https://picklstring.net"
+    },
+    "icon": "assets/flux_casting/icon.png"
+  },
+  "intermediate_mappings": "net.fabricmc:intermediary",
+  "entrypoints": {
+    "main": [
+      "net.picklestring.flux_casting.FluxCasting"
+    ],
+    "client": [
+      "net.picklestring.flux_casting.FluxCastingClient"
+    ],
+    "cardinal-components": [
+      "net.picklestring.flux_casting.registries.ComponentRegistry"
+    ],
+    "fabric-datagen": [
+      "net.picklestring.flux_casting.datagen.FluxCastingDataGenerator"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.16.7",
+    "fabric": ">=0.92.2",
+    "minecraft": ">=1.21.1"
+  },
+	"mixin": "flux_casting.mixins.json",
+  "custom": {
+    "cardinal-components": [
+      "flux_casting:internalized_flux"
+    ]
+  }
+}

@@ -9,6 +9,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.picklestring.flux_casting.FluxCasting;
+import net.picklestring.flux_casting.utils.CastingContext;
 import net.picklestring.flux_casting.utils.Vector3;
 
 import java.lang.reflect.Type;
@@ -16,15 +17,41 @@ import java.lang.reflect.Type;
 public class RendStoneRune extends RuneItem {
 	public RendStoneRune(Settings settings) {
 		super(settings,
-			new Type[][]{ new Type[]{Vector3.class} },
-			null,
-			new Identifier(FluxCasting.ModID, "textures/gui/rune_overlay/debug_rune_overlay.png"));
+			new Type[][]{
+				new Type[]{Vector3.class}
+			},
+			new Type[]{
+				null
+			},
+			Identifier.of(FluxCasting.ModID, "textures/gui/rune_overlay/debug_rune_overlay.png"));
 	}
 
 	@Override
-	public void onCast(DefaultedList<ItemStack> inventory, int index, PlayerEntity caster, Vec3d pos, World world) {
-		executeInserters(inventory, index, caster, pos, world);
-		Vector3 blockPos = getDataOrDefault(0, Vector3.Vec3dToVector3(new Vec3d(0d, 0d, 0d)), Vector3.class);
+	public void onCast(DefaultedList<ItemStack> inventory, int index, PlayerEntity caster, Vec3d pos, World world, CastingContext context) {
+		if (!context.isStack) {
+			executeInserters(inventory, index, caster, pos, world, context);
+		}
+		else {
+			stringPartOrStackPop(context, inventory, index, 0);
+		}
+		Vector3 blockPos = null;
+
+		if (isDataNull(caster, inventory, index, 0)) return;
+
+		if (data[0] instanceof String) {
+			String[] strs = ((String) data[0]).split(" ?,?");
+			if (strs.length != 3) {
+				sendMisMatchedTypeError(caster, index, 0);
+				return;
+			};
+			blockPos = new Vector3(Double.parseDouble(strs[0]), Double.parseDouble(strs[1]), Double.parseDouble(strs[2]));
+		} else if (data[0] instanceof Vector3) {
+			blockPos = (Vector3)data[0];
+		}else {
+			sendMisMatchedTypeError(caster, index, 0);
+			return;
+		}
+
 		if (Math.abs(Vector3.Vec3dToVector3(pos).getMagnitude()-blockPos.getMagnitude()) > 15) {
 			caster.sendMessage(Text.of("Rend Stone out of range of 15"), false);
 			return;
@@ -38,7 +65,7 @@ public class RendStoneRune extends RuneItem {
 	}
 
 	@Override
-	public Object getValue(DefaultedList<ItemStack> inventory, int runeIndex, PlayerEntity caster, Vec3d pos, World world) {
+	public Object[] getValue(DefaultedList<ItemStack> inventory, int runeIndex, PlayerEntity caster, Vec3d pos, World world, CastingContext context) {
 		return null;
 	}
 }

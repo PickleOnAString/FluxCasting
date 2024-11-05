@@ -24,7 +24,7 @@
     "###"
   ],
   "result": {
-    "count": 1,
-    "item": "flux_casting:rift_bench"
+    "id": "flux_casting:rift_bench",
+    "count": 1
   }
 }

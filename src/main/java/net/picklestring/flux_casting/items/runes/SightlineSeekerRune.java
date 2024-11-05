@@ -10,32 +10,53 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.picklestring.flux_casting.FluxCasting;
+import net.picklestring.flux_casting.utils.CastingContext;
 import net.picklestring.flux_casting.utils.Vector3;
 
 import java.lang.reflect.Type;
 
 public class SightlineSeekerRune extends RuneItem {
 	public SightlineSeekerRune(Settings settings) {
-		super(settings, new Type[][]{ new Type[]{LivingEntity.class} }, Vector3.class, new Identifier(FluxCasting.ModID, "textures/gui/rune_overlay/sightline_seeker_rune_overlay.png"));
+		super(settings,
+			new Type[][]{
+				new Type[]{
+					LivingEntity.class}
+			},
+			new Type[]{
+				Vector3.class
+			},
+			Identifier.of(FluxCasting.ModID, "textures/gui/rune_overlay/sightline_seeker_rune_overlay.png")
+		);
 	}
 
 	@Override
-	public void onCast(DefaultedList<ItemStack> inventory, int index, PlayerEntity caster, Vec3d pos, World world) {
+	public void onCast(DefaultedList<ItemStack> inventory, int index, PlayerEntity caster, Vec3d pos, World world, CastingContext context) {
 		return;
 	}
 
 	@Override
-	public Object getValue(DefaultedList<ItemStack> inventory, int runeIndex, PlayerEntity caster, Vec3d pos, World world) {
-		executeInserters(inventory, runeIndex, caster, pos, world);
+	public Object[] getValue(DefaultedList<ItemStack> inventory, int runeIndex, PlayerEntity caster, Vec3d pos, World world, CastingContext context) {
+		if (!context.isStack) {
+			executeInserters(inventory, runeIndex, caster, pos, world, context);
+		}
+		else {
+			stringPartOrStackPop(context, inventory, runeIndex, 0);
+		}
 
-		LivingEntity entity = getDataOrDefault(0, null, LivingEntity.class);
+		LivingEntity entity = null;
 
-		if (entity == null) {
-			caster.sendMessage(Text.literal("Rune at: index "+runeIndex+", LivingEntity at Index 0 is null").formatted(Formatting.RED), false);
-			return null;
+		if (isDataNull(caster, inventory, runeIndex, 0)) return new Object[] { null };
+
+		if (data[0] instanceof LivingEntity) {
+			entity = (LivingEntity)data[0];
+		}else {
+			sendMisMatchedTypeError(caster, runeIndex, 0);
+			return new Object[] { null };
 		}
 
 		data = new Object[data.length];
-		return Vector3.Vec3dToVector3(Vec3d.fromPolar(entity.getPitch(), entity.headYaw));
+		return new Object[]{
+			Vector3.Vec3dToVector3(Vec3d.fromPolar(entity.getPitch(), entity.headYaw))
+		};
 	}
 }
