@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "r": {
+      "item": "flux_weavers:blank_rune"
+    },
+    "f": {
+      "tag": "minecraft:flux_small"
+    },
+    "p": {
+      "item": "minecraft:polished_deepslate"
+    }
+  },
+  "pattern": [
+    "ppp",
+    "frf",
+    "ppp"
+  ],
+  "result": {
+    "id": "flux_weavers:rune_table",
+    "count": 1
+  }
+}

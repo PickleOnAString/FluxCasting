@@ -1,0 +1,24 @@
+{
+  "name": "Runes",
+  "icon": "flux_weavers:blank_rune",
+  "category": "flux_weavers:flux_category",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Success! We've successfully created a slab of scarred stone, also known as a Rune. These runes possess intriguing properties; it appears that they can be utilized to manipulate flux, inducing peculiar phenomena. However, before I can harness their potential, "
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "flux_casting:rune_table",
+      "text": "I must devise a method to arrange these runes into what is referred to as a \"spell.\" I believe a design akin to this schematic could suffice"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Furthermore, I require a means to activate these runes by infusing them with significant amounts of flux. I speculate that affixing a sizable chunk of flux to the end of a stick might serve this purpose. While it may not be aesthetically pleasing, it may prove effective in triggering the runes."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "flux_casting:flux_wand"
+    }
+  ]
+}

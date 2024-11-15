@@ -1,0 +1,18 @@
+{
+  "item.flux_weavers.blank_rune": "Blonk Flaat Stoon",
+  "item.flux_weavers.scarred_stone": "Odd Stane",
+  "item.flux_weavers.flux_bottle": "Floox Bottle",
+  "item.flux_weavers.bottle_o_scarred_stone": "Bootle Of Oddish Stoon",
+
+  "item.flux_weavers.debug_rune": "Debog Flaat Stoon",
+  "item.flux_weavers.string_input_rune": "String Inpuut Flaat Stoon",
+
+  "item.flux_weavers.bottle_o_scarred_stone.tooltip": "Corrent infused Flucks: %d/100",
+
+  "block.flux_weavers.rift_bench": "Rifty Benchy",
+  "block.flux_weavers.rune_table": "Flaat Stoon Thingie",
+
+  "itemGroup.flux_weavers.misc_group": "Flox Coosting Itoms",
+
+  "item.flux_weavers.flux_research_journal.name": "Fluox Sciants Boook"
+}

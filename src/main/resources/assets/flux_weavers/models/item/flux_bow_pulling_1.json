@@ -1,0 +1,6 @@
+{
+  "parent": "flux_weavers:item/flux_bow",
+  "textures": {
+    "layer0": "flux_weavers:item/flux_bow_pulling_1"
+  }
+}

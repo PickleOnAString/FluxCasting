@@ -1,32 +1,30 @@
 {
   "schemaVersion": 1,
-  "group": "${group}",
-  "id": "flux_casting",
+  "id": "flux_weavers",
   "version": "${version}",
-  "metadata": {
-    "name": "Flux Casting",
-    "description": "A short description of your mod.",
-    "contributors": {
-      "Pickle": "Lead Developer"
-    },
-    "contact": {
-      "homepage": "https://picklstring.net"
-    },
-    "icon": "assets/flux_casting/icon.png"
+  "name": "Flux Weavers",
+  "description": "A short description of your mod.",
+  "authors": [
+    "Pickle"
+  ],
+  "contact": {
+    "homepage": "https://picklstring.net"
   },
-  "intermediate_mappings": "net.fabricmc:intermediary",
+  "license": "MIT",
+  "icon": "assets/flux_weavers/icon.png",
+  "environment": "*",
   "entrypoints": {
     "main": [
-      "net.picklestring.flux_casting.FluxCasting"
+      "net.picklestring.flux_weavers.FluxWeavers"
     ],
     "client": [
-      "net.picklestring.flux_casting.FluxCastingClient"
+      "net.picklestring.flux_weavers.FluxWeaversClient"
     ],
     "cardinal-components": [
-      "net.picklestring.flux_casting.registries.ComponentRegistry"
+      "net.picklestring.flux_weavers.registries.ComponentRegistry"
     ],
     "fabric-datagen": [
-      "net.picklestring.flux_casting.datagen.FluxCastingDataGenerator"
+      "net.picklestring.flux_weavers.datagen.FluxWeaversDataGenerator"
     ]
   },
   "depends": {
@@ -34,10 +32,12 @@
     "fabric": ">=0.92.2",
     "minecraft": ">=1.21.1"
   },
-	"mixin": "flux_casting.mixins.json",
+	"mixins": [
+    "flux_weavers.mixins.json"
+  ],
   "custom": {
     "cardinal-components": [
-      "flux_casting:internalized_flux"
+      "flux_weavers:internalized_flux"
     ]
   }
 }

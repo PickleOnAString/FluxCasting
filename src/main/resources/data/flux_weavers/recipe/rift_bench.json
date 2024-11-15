@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "c": {
+      "item": "minecraft:copper_ingot"
+    },
+    "#": {
+      "tag": "minecraft:planks"
+    },
+    "g": {
+      "item": "minecraft:glass"
+    },
+    "f": {
+      "tag": "flux_weavers:flux_small"
+    },
+    "b": {
+      "item": "minecraft:bookshelf"
+    }
+  },
+  "pattern": [
+    "fff",
+    "cgb",
+    "###"
+  ],
+  "result": {
+    "id": "flux_weavers:rift_bench",
+    "count": 1
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "flux_weavers:block/flux_stone_leak"
+    }
+  }
+}

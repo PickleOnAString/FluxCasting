@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "flux_weavers:block/rune_table"
+    }
+  }
+}

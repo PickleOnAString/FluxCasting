@@ -1,0 +1,47 @@
+{
+  "item.flux_weavers.blank_rune": "Blank Rune",
+  "item.flux_weavers.scarred_stone": "Scarred Stone",
+  "item.flux_weavers.flux_bottle": "Flux Bottle",
+  "item.flux_weavers.bottle_o_scarred_stone": "Bottle o' Scarred Stone",
+  "item.flux_weavers.flux_wand": "Flux Wand",
+
+  "item.flux_weavers.arcane_scripter_rune": "Arcane Scripter Rune",
+  "item.flux_weavers.kinetic_momentum_rune": "Kinetic Momentum Rune",
+  "item.flux_weavers.rend_stone_rune": "Rend Stone Rune",
+  "item.flux_weavers.flux_stacker_rune": "Flux Stacker Rune",
+
+  "item.flux_weavers.runic_conduit_rune": "Runic Conduit Rune(Left to Right)",
+  "item.flux_weavers.runic_conduit_right_left_rune": "Runic Conduit Rune(Right to Left)",
+  "item.flux_weavers.runic_conduit_up_down_rune": "Runic Conduit Rune(Up to Down)",
+
+  "item.flux_weavers.soul_tracker_rune": "Soul Tracker Rune",
+  "item.flux_weavers.numerical_nexus_rune": "Numerical Nexus Rune",
+  "item.flux_weavers.spatial_slice_x_rune": "Spatial Slice X Rune",
+  "item.flux_weavers.numerical_imbuement_rune": "Numerical Imbuement Rune",
+  "item.flux_weavers.glyphic_inscription_rune": "Glyphic Inscription Rune",
+  "item.flux_weavers.gaze_anchor_rune": "Gaze Anchor Rune",
+  "item.flux_weavers.summoners_echo_rune": "Summoners Echo Rune",
+  "item.flux_weavers.sightline_seeker_rune": "Sightline Seeker Rune",
+  "item.flux_weavers.target_perception_rune": "Targets Perception Rune",
+  "item.flux_weavers.target_tracker_rune": "Targets Tracker Rune",
+  "item.flux_weavers.projectile_destination": "Projectile Destination Rune",
+  "item.flux_weavers.flux_validator_rune": "Flux Validator Rune",
+
+  "item.flux_weavers.flux_wand.spell_bound": "Spell was bound to your wand!",
+  "item.flux_weavers.spell_holder.missing_rune": "Failed to insert spell, Missing rune: %d",
+  "item.flux_weavers.spell_holder.table_not_empty": "Failed to insert spell, Empty the rune table.",
+  "item.flux_weavers.bottle_o_scarred_stone.tooltip": "Current infused Flux: %d/100",
+
+  "rune.flux_weavers.error.missing_data": "Rune at %d is missing data at index %d.",
+  "rune.flux_weavers.error.wrong_data_type": "Rune at %d has an incompatible data type at index %d: ",
+
+  "block.flux_weavers.rift_bench": "Rift Bench",
+  "block.flux_weavers.rune_table": "Rune Table",
+
+  "itemGroup.flux_weavers.misc_group": "Flux Casting Misc Items",
+  "itemGroup.flux_weavers.rune_group": "Flux Casting Runes",
+
+  "item.flux_weavers.flux_research_journal.name": "Flux Research Journal",
+
+  "casting.flux_weavers.out_of_flux": "Out of flux"
+}

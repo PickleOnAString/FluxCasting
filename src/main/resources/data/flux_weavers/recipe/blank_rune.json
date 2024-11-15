@@ -1,0 +1,41 @@
+{
+  "type": "rift_bench_recipe",
+  "ingredients":
+  [
+    {
+      "item": "minecraft:stone"
+    },
+    {
+      "item": "flux_weavers:scarred_stone"
+    },
+    {
+      "item": "flux_weavers:scarred_stone"
+    },
+    {
+      "item": "flux_weavers:scarred_stone"
+    },
+    {
+      "item": "flux_weavers:scarred_stone"
+    },
+    {
+      "item": "flux_weavers:scarred_stone"
+    },
+    {
+      "item": "flux_weavers:scarred_stone"
+    },
+    {
+      "item": "flux_weavers:scarred_stone"
+    },
+    {
+      "item": "flux_weavers:scarred_stone"
+    },
+    {
+      "tag": "flux_weavers:flux_small"
+    }
+  ],
+  "output": {
+    "id": "flux_weavers:blank_rune",
+    "count": 1
+  },
+  "resultAmount": 5
+}
