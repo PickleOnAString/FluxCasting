@@ -1,5 +1,7 @@
 package net.picklestring.flux_weavers.items.runes;
 
+import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -11,9 +13,11 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.picklestring.flux_weavers.FluxWeavers;
 import net.picklestring.flux_weavers.InternalizedFluxComponent;
 import net.picklestring.flux_weavers.registries.ComponentRegistry;
 import net.picklestring.flux_weavers.utils.CastingContext;
+import net.picklestring.flux_weavers.utils.Vector3;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -100,7 +104,7 @@ public abstract class RuneItem extends Item {
 	}
 
 	public void stringPartOrStackPop(CastingContext context, DefaultedList<ItemStack> inventory, int itemIndex, int dataIndex) {
-		data[dataIndex] = getStringPart(dataIndex+1, inventory.get(itemIndex));
+		setDataToStringPartIfValid(dataIndex, inventory.get(itemIndex));
 		if (data[dataIndex] == null) {
 			data[dataIndex] = context.stack.pop();
 		}
@@ -164,6 +168,65 @@ public abstract class RuneItem extends Item {
 		return strings[index];
 	}
 
+	public void setDataToStringPartIfValid(int dataIndex, ItemStack itemStack) {
+		String name = itemStack.getName().getString();
+		String[] strings = name.split(" ?: ?");
+		if (dataIndex+1 >= strings.length) return;
+		if (Objects.equals(strings[dataIndex+1], "null")) {
+			data[dataIndex] = null;
+			return;
+		}
+		data[dataIndex] = strings[dataIndex+1];
+	}
+
+	public Vector3 loadVec3FromData(int dataIndex, int runeIndex, PlayerEntity caster) {
+		if (data[dataIndex] instanceof String) {
+			return stringToVec((String)data[dataIndex], caster, runeIndex, dataIndex);
+		} else if (data[dataIndex] instanceof Vector3) {
+			return (Vector3)data[dataIndex];
+		}else {
+			sendMisMatchedTypeError(caster, runeIndex, dataIndex);
+			return null;
+		}
+	}
+
+	public Boolean loadBooleanFromData(int dataIndex, int runeIndex, PlayerEntity caster) {
+		if (data[dataIndex] instanceof String) {
+			return stringToBoolean((String)data[dataIndex], caster, runeIndex, dataIndex);
+		} else if (data[dataIndex] instanceof Boolean) {
+			return (Boolean) data[dataIndex];
+		}else {
+			sendMisMatchedTypeError(caster, runeIndex, dataIndex);
+			return null;
+		}
+	}
+
+	public Number loadNumberFromData(int dataIndex, int runeIndex, PlayerEntity caster) {
+		FluxWeavers.LOGGER.info("Loading Number at index: "+runeIndex);
+		if (data[dataIndex] instanceof String str) {
+			FluxWeavers.LOGGER.info("Parsing String to Number at index: "+runeIndex);
+			return Double.parseDouble(str);
+		} else if (data[dataIndex] instanceof Number num) {
+			return num;
+		}else {
+			sendMisMatchedTypeError(caster, runeIndex, dataIndex);
+			return null;
+		}
+	}
+
+	public Integer loadIntegerFromData(int dataIndex, int runeIndex, PlayerEntity caster) {
+		if (data[dataIndex] instanceof String str) {
+			return Integer.parseInt(str);
+		}else if (data[dataIndex] instanceof Integer integer) {
+			return integer;
+		}else if(data[dataIndex] instanceof Number num) {
+			return num.intValue();
+		}else {
+			sendMisMatchedTypeError(caster, runeIndex, dataIndex);
+			return null;
+		}
+	}
+
 	public <T> T getDataOrDefault(int index, T defaultData, Class<T> clazz) {
 		if (data[index] == null) {
 			data[index] = defaultData;
@@ -221,5 +284,25 @@ public abstract class RuneItem extends Item {
 	public boolean canCastFluxCost(int amount, PlayerEntity caster) {
 		InternalizedFluxComponent component = ComponentRegistry.INTERNALIZED_FLUX.get(caster);
 		return component.getValue() >= amount;
+	}
+
+	public Vector3 stringToVec(String str, PlayerEntity caster, int runeIndex, int dataIndex) {
+		String[] strs = str.split(" ?,?");
+		if (strs.length != 3) {
+			sendMisMatchedTypeError(caster, runeIndex, dataIndex);
+			return null;
+		};
+		return new Vector3(Double.parseDouble(strs[0]), Double.parseDouble(strs[1]), Double.parseDouble(strs[2]));
+	}
+
+	public Boolean stringToBoolean(String str, PlayerEntity caster, int runeIndex, int dataIndex) {
+		if (str.equalsIgnoreCase("true")) {
+			return Boolean.TRUE;
+		}
+		else if (str.equalsIgnoreCase("false")) {
+			return Boolean.FALSE;
+		}
+		sendMisMatchedTypeError(caster, runeIndex, dataIndex);
+		return null;
 	}
 }

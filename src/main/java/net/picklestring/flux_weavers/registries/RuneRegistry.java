@@ -18,10 +18,14 @@ public class RuneRegistry {
 	public static final FluxStackerRune FLUX_STACKER_RUNE = new FluxStackerRune(new Item.Settings());
 	public static final FlashFireRune FLASH_FIRE_RUNE = new FlashFireRune(new Item.Settings());
 	public static final VerdantBloomRune VERDANT_BLOOM_RUNE = new VerdantBloomRune(new Item.Settings());
+	public static final TeleportationRune TELEPORTATION_RUNE = new TeleportationRune(new Item.Settings());
 
 	public static final RunicConduitRune RUNIC_CONDUIT_RUNE = new RunicConduitRune(new Item.Settings(), RunicConduitRune.Direction.Right, RunicConduitRune.Direction.Left);
 	public static final RunicConduitRune RUNIC_CONDUIT_RIGHT_LEFT_RUNE = new RunicConduitRune(new Item.Settings(), RunicConduitRune.Direction.Left, RunicConduitRune.Direction.Right);
 	public static final RunicConduitRune RUNIC_CONDUIT_UP_DOWN_RUNE = new RunicConduitRune(new Item.Settings(), RunicConduitRune.Direction.Down, RunicConduitRune.Direction.Up);
+	public static final TimeReversalRune TIME_REVERSAL_RUNE = new TimeReversalRune(new Item.Settings());
+
+	public static final LesserNumberComparisonRune LESSER_NUMBER_COMPARISON_RUNE = new LesserNumberComparisonRune(new Item.Settings());
 
 	public static final GlyphicInscriptionRune GLYPHIC_INSCRIPTION_RUNE = new GlyphicInscriptionRune(new Item.Settings());
 	public static final NumericalImbuementRune NUMERICAL_IMBUEMENT_RUNE = new NumericalImbuementRune(new Item.Settings());
@@ -36,10 +40,20 @@ public class RuneRegistry {
 	public static final TargetTrackerRune TARGET_TRACKER_RUNE = new TargetTrackerRune(new Item.Settings());
 	public static final FluxValidatorRune FLUX_VALIDATOR_RUNE = new FluxValidatorRune(new Item.Settings());
 	public static final ProjectilePointerRune PROJECTILE_POINTER_RUNE = new ProjectilePointerRune(new Item.Settings());
+	public static final AxisInspectorXRune AXIS_INSPECTOR_X_RUNE = new AxisInspectorXRune(new Item.Settings());
+	public static final AxisInspectorYRune AXIS_INSPECTOR_Y_RUNE = new AxisInspectorYRune(new Item.Settings());
+	public static final AxisInspectorZRune AXIS_INSPECTOR_Z_RUNE = new AxisInspectorZRune(new Item.Settings());
+	public static final VectorMultiplicationRune VECTOR_MULTIPLICATION_RUNE = new VectorMultiplicationRune(new Item.Settings());
+	public static final VectorAdditionRune VECTOR_ADDITION_RUNE = new VectorAdditionRune(new Item.Settings());
+	public static final FaceFinderRune FACE_FINDER_RUNE = new FaceFinderRune(new Item.Settings());
+	public static final NumberAdditionRune NUMBER_ADDITION_RUNE = new NumberAdditionRune(new Item.Settings());
+	public static final PointerMultiplicationRune POINTER_MULTIPLICATION_RUNE = new PointerMultiplicationRune(new Item.Settings());
+	public static final ConstructVectorRune CONSTRUCT_VECTOR_RUNE = new ConstructVectorRune(new Item.Settings());
 
 	public static final Identifier ACTION_RUNE_TEMPLATE = Identifier.of(FluxWeavers.ModID, "item/template_action_rune");
 	public static final Identifier FLOW_RUNE_TEMPLATE = Identifier.of(FluxWeavers.ModID, "item/template_flow_rune");
 	public static final Identifier DATA_RUNE_TEMPLATE = Identifier.of(FluxWeavers.ModID, "item/template_data_rune");
+	public static final Identifier VALIDATOR_RUNE_TEMPLATE = Identifier.of(FluxWeavers.ModID, "item/template_validator_rune");
 
 	public static void Register()
 	{
@@ -65,6 +79,18 @@ public class RuneRegistry {
 		Registry.register(Registries.ITEM, Identifier.of(FluxWeavers.ModID, "target_tracker_rune"), TARGET_TRACKER_RUNE);
 		Registry.register(Registries.ITEM, Identifier.of(FluxWeavers.ModID, "flux_validator_rune"), FLUX_VALIDATOR_RUNE);
 		Registry.register(Registries.ITEM, Identifier.of(FluxWeavers.ModID, "projectile_pointer_rune"), PROJECTILE_POINTER_RUNE);
+		Registry.register(Registries.ITEM, Identifier.of(FluxWeavers.ModID, "axis_inspector_x_rune"), AXIS_INSPECTOR_X_RUNE);
+		Registry.register(Registries.ITEM, Identifier.of(FluxWeavers.ModID, "axis_inspector_y_rune"), AXIS_INSPECTOR_Y_RUNE);
+		Registry.register(Registries.ITEM, Identifier.of(FluxWeavers.ModID, "axis_inspector_z_rune"), AXIS_INSPECTOR_Z_RUNE);
+		Registry.register(Registries.ITEM, Identifier.of(FluxWeavers.ModID, "vector_multiplication_rune"), VECTOR_MULTIPLICATION_RUNE);
+		Registry.register(Registries.ITEM, Identifier.of(FluxWeavers.ModID, "vector_addition_rune"), VECTOR_ADDITION_RUNE);
+		Registry.register(Registries.ITEM, Identifier.of(FluxWeavers.ModID, "teleportation_rune"), TELEPORTATION_RUNE);
+		Registry.register(Registries.ITEM, Identifier.of(FluxWeavers.ModID, "face_finder_rune"), FACE_FINDER_RUNE);
+		Registry.register(Registries.ITEM, Identifier.of(FluxWeavers.ModID, "number_addition_rune"), NUMBER_ADDITION_RUNE);
+		Registry.register(Registries.ITEM, Identifier.of(FluxWeavers.ModID, "pointer_multiplication_rune"), POINTER_MULTIPLICATION_RUNE);
+		Registry.register(Registries.ITEM, Identifier.of(FluxWeavers.ModID, "construct_vector_rune"), CONSTRUCT_VECTOR_RUNE);
+		Registry.register(Registries.ITEM, Identifier.of(FluxWeavers.ModID, "time_reversal_rune"), TIME_REVERSAL_RUNE);
+		Registry.register(Registries.ITEM, Identifier.of(FluxWeavers.ModID, "lesser_number_comparison"), LESSER_NUMBER_COMPARISON_RUNE);
 	}
 
 	public static void GenerateItemModels(ItemModelGenerator itemModelGenerator) {
@@ -74,10 +100,14 @@ public class RuneRegistry {
 		itemModelGenerator.register(FLUX_STACKER_RUNE, new Model(Optional.of(ACTION_RUNE_TEMPLATE), Optional.empty()));
 		itemModelGenerator.register(FLASH_FIRE_RUNE, new Model(Optional.of(ACTION_RUNE_TEMPLATE), Optional.empty()));
 		itemModelGenerator.register(VERDANT_BLOOM_RUNE, new Model(Optional.of(ACTION_RUNE_TEMPLATE), Optional.empty()));
+		itemModelGenerator.register(TELEPORTATION_RUNE, new Model(Optional.of(ACTION_RUNE_TEMPLATE), Optional.empty()));
 
 		itemModelGenerator.register(RUNIC_CONDUIT_RUNE, new Model(Optional.of(FLOW_RUNE_TEMPLATE), Optional.empty()));
 		itemModelGenerator.register(RUNIC_CONDUIT_RIGHT_LEFT_RUNE, new Model(Optional.of(FLOW_RUNE_TEMPLATE), Optional.empty()));
 		itemModelGenerator.register(RUNIC_CONDUIT_UP_DOWN_RUNE, new Model(Optional.of(FLOW_RUNE_TEMPLATE), Optional.empty()));
+		itemModelGenerator.register(TIME_REVERSAL_RUNE, new Model(Optional.of(FLOW_RUNE_TEMPLATE), Optional.empty()));
+
+		itemModelGenerator.register(LESSER_NUMBER_COMPARISON_RUNE, new Model(Optional.of(VALIDATOR_RUNE_TEMPLATE), Optional.empty()));
 
 		itemModelGenerator.register(GLYPHIC_INSCRIPTION_RUNE, new Model(Optional.of(DATA_RUNE_TEMPLATE), Optional.empty()));
 		itemModelGenerator.register(NUMERICAL_IMBUEMENT_RUNE, new Model(Optional.of(DATA_RUNE_TEMPLATE), Optional.empty()));
@@ -92,5 +122,14 @@ public class RuneRegistry {
 		itemModelGenerator.register(PROJECTILE_DESTINATION_RUNE, new Model(Optional.of(DATA_RUNE_TEMPLATE), Optional.empty()));
 		itemModelGenerator.register(FLUX_VALIDATOR_RUNE, new Model(Optional.of(DATA_RUNE_TEMPLATE), Optional.empty()));
 		itemModelGenerator.register(PROJECTILE_POINTER_RUNE, new Model(Optional.of(DATA_RUNE_TEMPLATE), Optional.empty()));
+		itemModelGenerator.register(AXIS_INSPECTOR_X_RUNE, new Model(Optional.of(DATA_RUNE_TEMPLATE), Optional.empty()));
+		itemModelGenerator.register(AXIS_INSPECTOR_Y_RUNE, new Model(Optional.of(DATA_RUNE_TEMPLATE), Optional.empty()));
+		itemModelGenerator.register(AXIS_INSPECTOR_Z_RUNE, new Model(Optional.of(DATA_RUNE_TEMPLATE), Optional.empty()));
+		itemModelGenerator.register(VECTOR_MULTIPLICATION_RUNE, new Model(Optional.of(DATA_RUNE_TEMPLATE), Optional.empty()));
+		itemModelGenerator.register(VECTOR_ADDITION_RUNE, new Model(Optional.of(DATA_RUNE_TEMPLATE), Optional.empty()));
+		itemModelGenerator.register(FACE_FINDER_RUNE, new Model(Optional.of(DATA_RUNE_TEMPLATE), Optional.empty()));
+		itemModelGenerator.register(NUMBER_ADDITION_RUNE, new Model(Optional.of(DATA_RUNE_TEMPLATE), Optional.empty()));
+		itemModelGenerator.register(POINTER_MULTIPLICATION_RUNE, new Model(Optional.of(DATA_RUNE_TEMPLATE), Optional.empty()));
+		itemModelGenerator.register(CONSTRUCT_VECTOR_RUNE, new Model(Optional.of(DATA_RUNE_TEMPLATE), Optional.empty()));
 	}
 }

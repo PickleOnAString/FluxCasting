@@ -4,6 +4,14 @@
   "item.flux_weavers.flux_bottle": "Flux Bottle",
   "item.flux_weavers.bottle_o_scarred_stone": "Bottle o' Scarred Stone",
   "item.flux_weavers.flux_wand": "Flux Wand",
+  "item.flux_weavers.spell_holder": "Spell Retainer",
+  "item.flux_weavers.flux_bow": "Flux Bow",
+  "item.flux_weavers.flux_sword": "Flux Sword",
+  "item.flux_weavers.etchable_alloy": "Etchable Alloy",
+
+  "item.flux_weavers.small_raw_flux": "Small Raw Flux",
+  "item.flux_weavers.medium_raw_flux": "Medium Raw Flux",
+  "item.flux_weavers.large_raw_flux": "Large Raw Flux",
 
   "item.flux_weavers.arcane_scripter_rune": "Arcane Scripter Rune",
   "item.flux_weavers.kinetic_momentum_rune": "Kinetic Momentum Rune",
@@ -24,7 +32,7 @@
   "item.flux_weavers.sightline_seeker_rune": "Sightline Seeker Rune",
   "item.flux_weavers.target_perception_rune": "Targets Perception Rune",
   "item.flux_weavers.target_tracker_rune": "Targets Tracker Rune",
-  "item.flux_weavers.projectile_destination": "Projectile Destination Rune",
+  "item.flux_weavers.projectile_destination_rune": "Projectile Destination Rune",
   "item.flux_weavers.flux_validator_rune": "Flux Validator Rune",
 
   "item.flux_weavers.flux_wand.spell_bound": "Spell was bound to your wand!",

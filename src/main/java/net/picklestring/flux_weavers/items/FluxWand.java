@@ -38,38 +38,6 @@ public class FluxWand extends Item {
 		if (world.isClient || player.isSneaking()) return;
 
 		CastingContext context = new CastingContext();
-
-		for (int i = 0; i < inventory.size(); i++) {
-			ItemStack stack = inventory.get(i);
-			if (!stack.isEmpty()) {
-				if (stack.getItem() instanceof RuneItem) {
-					if (stack.getItem() instanceof RuneItem) {
-						if (context.isStack) {
-							Object[] stackObjects = ((RuneItem) stack.getItem()).getValue(ListUtils.listToDefaultedList(inventory, ItemStack.EMPTY), i, player, new Vec3d(player.getX(), player.getY(), player.getZ()), world, context);
-							if (stackObjects != null) {
-								for (Object stackObject : stackObjects) {
-									context.stack.push(stackObject);
-								}
-							}
-							if (context.isCanceled) return;
-						}
-						FluxWeavers.LOGGER.info("Stack" + String.valueOf(context.stack));
-					}
-					((RuneItem) stack.getItem()).onCast(ListUtils.listToDefaultedList(inventory, ItemStack.EMPTY), i, player, new Vec3d(player.getX(), player.getY(), player.getZ()), world, context);
-				}
-			}
-		}
-		for (ItemStack stack : inventory) {
-			if (!stack.isEmpty()) {
-				if (stack.getItem() instanceof RuneItem rune) {
-					if (rune.dataFormat == null) {
-						rune.data = new Object[0];
-					}
-					else {
-						rune.data = new Object[rune.dataFormat.length];
-					}
-				}
-			}
-		}
+		CastingContext.cast(ListUtils.listToDefaultedList(inventory, ItemStack.EMPTY), player, context);
 	}
 }

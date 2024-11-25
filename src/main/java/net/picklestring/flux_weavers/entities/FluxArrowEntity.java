@@ -73,42 +73,8 @@ public class FluxArrowEntity extends PersistentProjectileEntity {
         if (getWorld().isClient || owner.isSneaking()) return;
 
 		context.extraContext.put("Arrow", this);
+		CastingContext.cast(spell, (PlayerEntity)getOwner(), context);
 
-		for (int i = 0; i < spell.size(); i++) {
-			ItemStack stack = spell.get(i);
-			if (!stack.isEmpty()) {
-				if (stack.getItem() instanceof RuneItem) {
-					if (stack.getItem() instanceof RuneItem) {
-						if (context.isStack) {
-							Object[] stackObjects = ((RuneItem) stack.getItem()).getValue(ListUtils.listToDefaultedList(spell, ItemStack.EMPTY), i, owner, new Vec3d(owner.getX(), owner.getY(), owner.getZ()), getWorld(), context);
-							if (stackObjects != null) {
-								for (Object stackObject : stackObjects) {
-									FluxWeavers.LOGGER.info("test: "+stackObject);
-									context.stack.push(stackObject);
-								}
-							}
-							if (context.isCanceled) {
-								kill();
-								return;
-							}
-						}
-					}
-					((RuneItem) stack.getItem()).onCast(ListUtils.listToDefaultedList(spell, ItemStack.EMPTY), i, owner, new Vec3d(owner.getX(), owner.getY(), owner.getZ()), getWorld(), context);
-				}
-			}
-		}
-		for (ItemStack stack : spell) {
-			if (!stack.isEmpty()) {
-				if (stack.getItem() instanceof RuneItem rune) {
-					if (rune.dataFormat == null) {
-						rune.data = new Object[0];
-					}
-					else {
-						rune.data = new Object[rune.dataFormat.length];
-					}
-				}
-			}
-		}
 		kill();
 	}
 

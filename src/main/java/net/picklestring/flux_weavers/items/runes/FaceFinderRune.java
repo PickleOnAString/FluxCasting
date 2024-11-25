@@ -1,6 +1,5 @@
 package net.picklestring.flux_weavers.items.runes;
 
-import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -8,11 +7,9 @@ import net.minecraft.predicate.block.BlockStatePredicate;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.BlockStateRaycastContext;
-import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.picklestring.flux_weavers.FluxWeavers;
 import net.picklestring.flux_weavers.utils.CastingContext;
@@ -21,18 +18,19 @@ import net.picklestring.flux_weavers.utils.Vector3;
 
 import java.lang.reflect.Type;
 
-public class TargetPerceptionRune extends RuneItem {
-	public TargetPerceptionRune(Settings settings) {
-		super(settings,
-			new Type[][]{
-				new Type[]{
+public class FaceFinderRune extends RuneItem {
+	public FaceFinderRune(Settings settings) {
+		super(
+			settings,
+			new Type[][] {
+				new Type[] {
 					Vector3.class
 				},
-				new Type[]{
+				new Type[] {
 					Vector3.class
 				}
 			},
-			new Type[]{
+			new Type[] {
 				Vector3.class
 			},
 			Identifier.of(FluxWeavers.ModID, "textures/gui/rune_overlay/target_perception_rune_overlay.png")
@@ -77,10 +75,11 @@ public class TargetPerceptionRune extends RuneItem {
 			.and(BlockStatePredicate.forBlock(Blocks.SHORT_GRASS).negate())
 			.and(BlockStatePredicate.forBlock(Blocks.TALL_GRASS).negate())), world);
 
-		FluxWeavers.LOGGER.info("hit pos: "+hit.getBlockPos().toString());
+		if (hit.getSide() == Direction.UP) FluxWeavers.LOGGER.info("Test");
 
-        return new Object[]{
-			Vector3.Vec3dToVector3(hit.getPos())
+
+		return new Object[]{
+			Vector3.Vec3dToVector3(Vec3d.of(hit.getSide().getVector()))
 		};
 	}
 }

@@ -25,5 +25,9 @@ public class ItemPredicateRegistry {
 		});
 		ModelPredicateProviderRegistry.register(ItemRegistry.FLUX_BOW, Identifier.of(FluxWeavers.ModID, "spell"), (itemStack, clientWorld, livingEntity, seed) ->
 			itemStack.contains(ItemComponentRegistry.SPELL) ? 1 : 0);
+
+		//flux sword
+		ModelPredicateProviderRegistry.register(ItemRegistry.FLUX_SWORD, Identifier.of(FluxWeavers.ModID, "spell"), (itemStack, clientWorld, livingEntity, seed) ->
+			itemStack.contains(ItemComponentRegistry.SPELL) ? 1 : 0);
 	}
 }

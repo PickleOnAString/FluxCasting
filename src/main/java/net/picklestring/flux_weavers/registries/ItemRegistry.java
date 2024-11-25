@@ -1,10 +1,10 @@
 package net.picklestring.flux_weavers.registries;
 
+import net.minecraft.component.Component;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.data.client.ItemModelGenerator;
 import net.minecraft.data.client.Models;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.BowItem;
-import net.minecraft.item.Item;
+import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
@@ -28,6 +28,10 @@ public class ItemRegistry {
 	public static final BlockItem RUNE_TABLE = new BlockItem(BlockRegistry.RUNE_TABLE, new Item.Settings());
 	public static final FluxBow FLUX_BOW = new FluxBow(new Item.Settings()
 		.component(ItemComponentRegistry.CAN_BIND_SPELLS, true));
+	public static final FluxSword FLUX_SWORD = new FluxSword(FluxToolMaterial.INSTANCE, new Item.Settings()
+		.attributeModifiers(SwordItem.createAttributeModifiers(FluxToolMaterial.INSTANCE, 3, -2.4F))
+		.component(ItemComponentRegistry.CAN_BIND_SPELLS, true));
+	public static final Item ETCHABLE_ALLOY = new Item(new Item.Settings());
 
 	public static final Item SMALL_RAW_FLUX = new Item(new Item.Settings());
 	public static final Item MEDIUM_RAW_FLUX = new Item(new Item.Settings());
@@ -44,6 +48,8 @@ public class ItemRegistry {
 		Registry.register(Registries.ITEM, Identifier.of(FluxWeavers.ModID, "rift_bench"), RIFT_BENCH);
 		Registry.register(Registries.ITEM, Identifier.of(FluxWeavers.ModID, "rune_table"), RUNE_TABLE);
 		Registry.register(Registries.ITEM, Identifier.of(FluxWeavers.ModID, "flux_bow"), FLUX_BOW);
+		Registry.register(Registries.ITEM, Identifier.of(FluxWeavers.ModID, "flux_sword"), FLUX_SWORD);
+		Registry.register(Registries.ITEM, Identifier.of(FluxWeavers.ModID, "etchable_alloy"), ETCHABLE_ALLOY);
 
 		Registry.register(Registries.ITEM, Identifier.of(FluxWeavers.ModID, "small_raw_flux"), SMALL_RAW_FLUX);
 		Registry.register(Registries.ITEM, Identifier.of(FluxWeavers.ModID, "medium_raw_flux"), MEDIUM_RAW_FLUX);
@@ -56,6 +62,7 @@ public class ItemRegistry {
 		itemModelGenerator.register(SCARRED_STONE, Models.GENERATED);
 		itemModelGenerator.register(BOTTLE_O_SCARRED_STONE, Models.GENERATED);
 		itemModelGenerator.register(FLUX_WAND, Models.HANDHELD);
+		itemModelGenerator.register(ETCHABLE_ALLOY, Models.GENERATED);
 
 		itemModelGenerator.register(SMALL_RAW_FLUX, Models.GENERATED);
 		itemModelGenerator.register(MEDIUM_RAW_FLUX, Models.GENERATED);

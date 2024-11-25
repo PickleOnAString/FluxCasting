@@ -48,6 +48,13 @@ public class Vector3 {
 		return this;
 	}
 
+	public Vector3 multiply(Vector3 value) {
+		this.x*=value.x;
+		this.y*=value.y;
+		this.z*=value.z;
+		return this;
+	}
+
 	public Vector3 add(Vector3 value) {
 		this.x+=value.x;
 		this.y+=value.y;

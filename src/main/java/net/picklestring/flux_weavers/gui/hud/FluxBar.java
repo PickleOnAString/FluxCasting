@@ -21,7 +21,7 @@ public class FluxBar implements HudRenderCallback {
 		int fillPercent = 0;
 		if (MinecraftClient.getInstance() != null)
 		{
-			if (!MinecraftClient.getInstance().player.isHolding(ItemRegistry.FLUX_WAND) && !MinecraftClient.getInstance().player.isHolding(ItemRegistry.FLUX_BOW)) return;
+			if (!MinecraftClient.getInstance().player.isHolding(ItemRegistry.FLUX_WAND) && !MinecraftClient.getInstance().player.isHolding(ItemRegistry.FLUX_BOW) && !MinecraftClient.getInstance().player.isHolding(ItemRegistry.FLUX_SWORD)) return;
 
 			InternalizedFluxComponent component = ComponentRegistry.INTERNALIZED_FLUX.get(MinecraftClient.getInstance().player);
 			float fillAmount = component.getValue();
